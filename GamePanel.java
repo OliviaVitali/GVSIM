@@ -17,6 +17,7 @@ public class GamePanel extends JPanel {
     JTextArea ta;
     ActionListener listener;
     Location currLocation;
+    Location prevLocation;
     Map<String, Location> listAllLocations;
 
     public GamePanel() {
@@ -34,8 +35,9 @@ public class GamePanel extends JPanel {
         listAllLocations = new HashMap<String, Location>();
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
+        listAllLocations.put("FIGHT", new Fight());
         currLocation = listAllLocations.get("GATE");
-
+        
     }
 
     private void setPanel() {
@@ -80,6 +82,8 @@ public class GamePanel extends JPanel {
             //updates location if event has a location
             if (currEvent.getLocation() != null)
                 currLocation = listAllLocations.get(currEvent.getLocation());
+            if (!currLocation.getName().equals("FIGHT"))
+                prevLocation = currLocation;
         } catch(NullPointerException e){
             tf.setText(null);
         }
