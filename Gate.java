@@ -51,4 +51,5 @@ public class Gate extends Location{
         name = "GATE";
         flavorText = "You look around and find yourself at the beginning again.";
     }
+    public String getName() {return name;}
 }

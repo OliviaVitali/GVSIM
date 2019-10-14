@@ -35,7 +35,7 @@ public class GamePanel extends JPanel {
         listAllLocations = new HashMap<String, Location>();
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
-        listAllLocations.put("FIGHT", new Fight());
+        //listAllLocations.put("FIGHT", new Fight());
         currLocation = listAllLocations.get("GATE");
         
     }
@@ -80,10 +80,10 @@ public class GamePanel extends JPanel {
                 ta.setText(currEvent.getFlavorText());
 
             //updates location if event has a location
-            if (currEvent.getLocation() != null)
-                currLocation = listAllLocations.get(currEvent.getLocation());
-            if (!currLocation.getName().equals("FIGHT"))
-                prevLocation = currLocation;
+//            if (currEvent.getLocation() != null)
+//                currLocation = listAllLocations.get(currEvent.getLocation());
+//            if (!currLocation.getName().equals("FIGHT"))
+//                prevLocation = currLocation;
         } catch(NullPointerException e){
             tf.setText(null);
         }

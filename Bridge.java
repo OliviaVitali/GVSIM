@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class Bridge extends Location {
     public Bridge(){
         createEventList();
@@ -31,8 +33,7 @@ public class Bridge extends Location {
         listOfCharacters.put("TALK TO TROLL", new Character());
         Character currChar = listOfCharacters.get("TALK TO TROLL");
         currChar.setCharName("Gargafart");
-        currChar.setFlavorText("His bark is as bad as his byte.");
-        currChar.getStats.set(5, 1, 1, 2);
+        currChar.getCharStats().setAllStats(5, 1, 1, 2);
     }
 
     @Override

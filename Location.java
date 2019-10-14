@@ -18,4 +18,6 @@ public abstract class Location {
 
     protected abstract void createCharList();
     protected abstract void setDescription();
+
+
 }
