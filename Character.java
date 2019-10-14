@@ -56,7 +56,7 @@ public class Character {
         speechOptions.put("HI", "It's nice to meet you.");
         inventoryItems = new InventoryItem[1];
         inventoryItems[0] = new InventoryItem("Car Keys", "These keys belong to " + charName);
-        charStats = null;
+        charStats = new Stats(8, 6, 7, 5);
         isPlayer = false;
     }
 
