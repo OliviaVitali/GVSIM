@@ -16,6 +16,13 @@ public class Stats {
         this.defense = def;
     }
     
+    public void setAllStats(int health, int strength, int speed, int defense){
+        this.hp = health;
+        this.strength = strength;
+        this.speed = speed;
+        this.defense = defense;
+    }
+    
     public void damageCalculations(int hit){
     hp -= hit-defense;
     }
