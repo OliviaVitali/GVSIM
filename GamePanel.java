@@ -82,8 +82,15 @@ public class GamePanel extends JPanel {
             //updates location if event has a location
             if (currEvent.getLocation() != null)
                 currLocation = listAllLocations.get(currEvent.getLocation());
+            //doesn't update prevLocation if you start a fight
             if (!currLocation.getName().equals("FIGHT"))
                 prevLocation = currLocation;
+            
+            
+            if (currLocation.getName() == "FIGHT"){
+            if(currLocation.goBack)
+                currLocation = prevLocation;
+            }
         } catch(NullPointerException e){
             tf.setText(null);
         }
