@@ -5,19 +5,29 @@ import java.util.Map;
 import javax.swing.*;
 
 public class GamePanel extends JPanel {
+    /** Unused yet.  Has image loaded into GUI */
     private ImageIcon testImage;
+    /** menu for GUI */
     public JMenuBar mb;
     JMenu m1, m2;
     JMenuItem m11, m22;
     public JPanel panel;
     JLabel label;
+    /** user puts commands in this line */
     JTextField tf;
+    /** sends text in user command line to panel */
     JButton send;
+    /** button to reset text in input line in GUI */
     JButton reset;
+    /** text displayed on GUI */
     JTextArea ta;
+    /** listens to mouse clicks for GUI and relays them to panel*/
     ActionListener listener;
+    /** pointer to player's current location*/
     Location currLocation;
+    /** might delete*/
     Location prevLocation;
+    /** All locations are stored in a map*/
     Map<String, Location> listAllLocations;
 
     public GamePanel() {
