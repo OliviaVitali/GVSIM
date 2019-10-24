@@ -21,6 +21,7 @@ public class GamePanel extends JPanel {
     JButton reset;
     /** text displayed on GUI */
     JTextArea ta;
+    JScrollPane scroll;
     /** listens to mouse clicks for GUI and relays them to panel*/
     ActionListener listener;
     /** pointer to player's current location*/
@@ -32,19 +33,22 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
         listener = new listener();
+        // Text Area at the Center
+        ta = new JTextArea(5, 5);
+        ta.setText("Welcome to GVSimulator! Type LOOK to take a peek at the world around you!");
+        scroll = new JScrollPane(ta);
+
         setMenu();
         //Creating the panel at bottom and adding components
         setPanel();
         createLocations();
-        // Text Area at the Center
-        ta = new JTextArea("Welcome!  I worked so hard on this only to delete everything!" +
-                "  It's ok.  I rebuilt it and did it clean this time! You should type LOOK");
 
     }
     private void createLocations(){
         listAllLocations = new HashMap<String, Location>();
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
+        listAllLocations.put("MACKINAC", new Mackinac());
         //listAllLocations.put("FIGHT", new Fight());
         currLocation = listAllLocations.get("GATE");
         
@@ -56,7 +60,7 @@ public class GamePanel extends JPanel {
         tf = new JTextField(20); // accepts up to 20 characters
         send = new JButton("Send");
         send.addActionListener(listener);
-        reset = new JButton("Reset");
+        reset = new JButton("Clear");
         reset.addActionListener(listener);
         panel.add(label); // Components Added using Flow Layout
         panel.add(label); // Components Added using Flow Layout
@@ -87,11 +91,12 @@ public class GamePanel extends JPanel {
         try{
             Event currEvent = currLocation.getEvent(cmd);
             if (currEvent != null)
-                ta.setText(currEvent.getFlavorText());
+                ta.append(currEvent.getFlavorText());
+                ta.setCaretPosition(ta.getDocument().getLength());
 
             //updates location if event has a location
-//            if (currEvent.getLocation() != null)
-//                currLocation = listAllLocations.get(currEvent.getLocation());
+            if (currEvent.getLocation() != null)
+               currLocation = listAllLocations.get(currEvent.getLocation());
 //            if (!currLocation.getName().equals("FIGHT"))
 //                prevLocation = currLocation;
         } catch(NullPointerException e){

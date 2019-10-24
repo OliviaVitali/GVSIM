@@ -15,7 +15,7 @@ public class GUI {
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, panel.mb);
         frame.getContentPane().add(BorderLayout.SOUTH, panel.panel);
-        frame.getContentPane().add(BorderLayout.CENTER, panel.ta);
+        frame.getContentPane().add(BorderLayout.CENTER, panel.scroll);
         frame.setVisible(true);
 
     }

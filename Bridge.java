@@ -8,14 +8,15 @@ public class Bridge extends Location {
     }
     @Override
     protected void createEventList() {
-
+        mapOfEvents = new HashMap<String, Event>();
+        mapOfEvents.put("LOOK", new Event("LOOK", "You find yourself at the BRIDGE over a steep ravine. You are not alone."));
     }
 
     @Override
     protected Event getEvent(String userCommand) {
-        return null;
+        System.out.println(mapOfEvents.get(userCommand));
+        return mapOfEvents.get(userCommand);
     }
-
 
     @Override
     protected void createMap() {
@@ -40,4 +41,5 @@ public class Bridge extends Location {
     protected void setDescription() {
 
     }
+    public String getName() {return name;}
 }
