@@ -65,6 +65,9 @@ public class GamePanel extends JPanel {
         panel.add(reset);
     }
 
+    /**
+     * helper method to set up Menu for GUI
+     */
     private void setMenu() {
         //Creating the MenuBar and adding components
         mb = new JMenuBar();
@@ -78,12 +81,26 @@ public class GamePanel extends JPanel {
         m1.add(m22);
     }
 
+    /**
+     * helper method that sets background image
+     * TODO not working right now
+     */
     private void createBackgroundImages() {
         testImage = new ImageIcon("./src/CIS350");
     }
+
+    /**
+     * Passes user command to location and gets Event.  This is where
+     * the actual updating of the game state occurs.
+     * If we do a save game option, it will probably reference this
+     * method
+     * @param userCommand
+     */
     private void updateEvent(String userCommand){
+        //converts user input to Upper case for simplicity
         String cmd = userCommand.toUpperCase();
 
+        //only accepts valid commands
         try{
             Event currEvent = currLocation.getEvent(cmd);
             if (currEvent != null)
@@ -95,15 +112,22 @@ public class GamePanel extends JPanel {
 //            if (!currLocation.getName().equals("FIGHT"))
 //                prevLocation = currLocation;
         } catch(NullPointerException e){
+            //resets user text area if invalid command
             tf.setText(null);
         }
 
     }
 
+    /**
+     * Private class that contains listener.  Listener is used to
+     * connect buttons in GUI to panel
+     */
     private class listener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
+            //sends user Command to panel
             if (send == event.getSource())
                 updateEvent(tf.getText());
+            //resets text area for user
             if (reset == event.getSource())
                 tf.setText(null);
         }
