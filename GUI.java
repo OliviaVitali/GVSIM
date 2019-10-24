@@ -22,7 +22,7 @@ public class GUI {
         panel.ta.setBackground(Color.PINK);
         frame.getContentPane().add(BorderLayout.NORTH, panel.mb);
         frame.getContentPane().add(BorderLayout.SOUTH, panel.panel);
-        frame.getContentPane().add(BorderLayout.CENTER, panel.ta);
+        frame.getContentPane().add(BorderLayout.CENTER, panel.scroll);
         frame.setVisible(true);
     }
 }
