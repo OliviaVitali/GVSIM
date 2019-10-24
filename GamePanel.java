@@ -21,6 +21,7 @@ public class GamePanel extends JPanel {
     JButton reset;
     /** text displayed on GUI */
     JTextArea ta;
+    /** makes the text area scrollable */
     JScrollPane scroll;
     /** listens to mouse clicks for GUI and relays them to panel*/
     ActionListener listener;
@@ -37,6 +38,7 @@ public class GamePanel extends JPanel {
         ta = new JTextArea(5, 5);
         ta.setText("Welcome to GVSimulator! Type LOOK to take a peek at the world around you!");
         scroll = new JScrollPane(ta);
+        ta.setEditable(false);
 
         setMenu();
         //Creating the panel at bottom and adding components
