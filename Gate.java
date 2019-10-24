@@ -10,7 +10,7 @@ public class Gate extends Location{
     @Override
     protected void createEventList() {
         mapOfEvents = new HashMap<String, Event>();
-        mapOfEvents.put("LOOK", new Event("LOOK", "\nYou look at the big blue structure. It is big and very blue. To the south, you can see the BRIDGE."));
+        mapOfEvents.put("LOOK", new Event("LOOK", "\nYou look at the big blue structure. It is big and very blue. To the south, you can see the BRIDGE"));
         mapOfEvents.put("GO TO BRIDGE", new Event("GO TO BRIDGE", "\nYou walk towards the bridge"));
         mapOfEvents.get("GO TO BRIDGE").setLocation("BRIDGE");
     }

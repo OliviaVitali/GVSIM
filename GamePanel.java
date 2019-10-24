@@ -9,7 +9,8 @@ public class GamePanel extends JPanel {
     private ImageIcon testImage;
     /** menu for GUI */
     public JMenuBar mb;
-    JMenu m1, m2;
+    JMenu m1;
+    JButton m2;
     JMenuItem m11, m22;
     public JPanel panel;
     JLabel label;
@@ -74,14 +75,15 @@ public class GamePanel extends JPanel {
     private void setMenu() {
         //Creating the MenuBar and adding components
         mb = new JMenuBar();
-        m1 = new JMenu("FILE");
-        m2 = new JMenu("Help");
-        mb.add(m1);
+        //m1 = new JMenu("File");
+        m2 = new JButton("Help");
+        //mb.add(m1);
         mb.add(m2);
-        m11 = new JMenuItem("Open");
-        m22 = new JMenuItem("Save as");
-        m1.add(m11);
-        m1.add(m22);
+        m2.addActionListener(listener);
+        //m11 = new JMenuItem("Open");
+        //m22 = new JMenuItem("Save as");
+        //m1.add(m11);
+        //m1.add(m22);
     }
 
     private void createBackgroundImages() {
@@ -113,6 +115,12 @@ public class GamePanel extends JPanel {
                 updateEvent(tf.getText());
             if (reset == event.getSource())
                 tf.setText(null);
+            if (m2 == event.getSource()) {
+                for (String command : currLocation.mapOfEvents.keySet()){
+                    String variableKey = command;
+                    ta.append("\n" + variableKey);
+                }
+            }
         }
     }
 }
