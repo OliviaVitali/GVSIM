@@ -52,6 +52,7 @@ public class GamePanel extends JPanel {
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
         listAllLocations.put("MACKINAC", new Mackinac());
+        listAllLocations.put("PADNOS", new Padnos());
         //listAllLocations.put("FIGHT", new Fight());
         currLocation = listAllLocations.get("GATE");
         
@@ -89,6 +90,7 @@ public class GamePanel extends JPanel {
     private void createBackgroundImages() {
         testImage = new ImageIcon("./src/CIS350");
     }
+
     private void updateEvent(String userCommand){
         String cmd = userCommand.toUpperCase();
 
@@ -124,3 +126,5 @@ public class GamePanel extends JPanel {
         }
     }
 }
+
+//end GamePanel
