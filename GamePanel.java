@@ -32,6 +32,8 @@ public class GamePanel extends JPanel {
     Location prevLocation;
     /** All locations are stored in a map*/
     Map<String, Location> listAllLocations;
+    /**Boolean that make sure user initiated a fight**/
+    boolean theGoodFight;
 
     public GamePanel() {
         listener = new listener();
@@ -40,7 +42,7 @@ public class GamePanel extends JPanel {
         ta.setText("Welcome to GVSimulator! Type LOOK to take a peek at the world around you!");
         scroll = new JScrollPane(ta);
         ta.setEditable(false);
-
+        theGoodFight = false;
         setMenu();
         //Creating the panel at bottom and adding components
         setPanel();
@@ -104,8 +106,64 @@ public class GamePanel extends JPanel {
             //updates location if event has a location
             if (currEvent.getLocation() != null)
                currLocation = listAllLocations.get(currEvent.getLocation());
-//            if (!currLocation.getName().equals("FIGHT"))
-//                prevLocation = currLocation;
+
+            //Start of Cameron's Fight Shenanigans
+            if(currEvent.getName().equals("FIGHT")) {
+                if(currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP() <=0){
+                    ta.append("\n You can't fight a dead body -_-");
+
+                }else if(theGoodFight == true){
+                    ta.append("\n You are already in a fight. LOOK ALIVE.");
+
+                }else {
+                    ta.append("\n LET THE FIGHT BEGIN");
+                    ta.append("\n Player Stats: \n Hp = " + currLocation.listOfCharacters.get("PLAYER").getCharStats().getHP());
+                    ta.append("\n Str = " + currLocation.listOfCharacters.get("PLAYER").getCharStats().getStr());
+                    ta.append("\n Def = " + currLocation.listOfCharacters.get("PLAYER").getCharStats().getDef());
+                    ta.append("\n Spd = " + currLocation.listOfCharacters.get("PLAYER").getCharStats().getSpd());
+                    ta.append("\n" + currLocation.listOfCharacters.get("TALK TO TROLL").getCharName() +" Stats: \n Hp = " +
+                            currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP());
+                    ta.append("\n Str = " + currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getStr());
+                    ta.append("\n Def = " + currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getDef());
+                    ta.append("\n Spd = " + currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getSpd());
+                    currLocation.Fight(currLocation.listOfCharacters.get("TALK TO TROLL"), currLocation.listOfCharacters.get("TALK TO TROLL"), "START");
+                    theGoodFight = true;
+                }
+            }
+            if(currEvent.getName().equals("ATTACK")) {
+                if(theGoodFight == false){
+                    ta.append("\n Maaaayyybbbbeeee you should try and initiate a fight before you go attacking someone");
+
+                }else if (currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP() <= 0) {
+                    ta.append("\n They are already dead R E L A X");
+                }
+                else {
+                    currLocation.Fight(currLocation.listOfCharacters.get("PLAYER"), currLocation.listOfCharacters.get("TALK TO TROLL"), "ATTACK");
+                    ta.append("\n You Attack the Troll and he Attacks back \n Player hp:" + currLocation.listOfCharacters.get("PLAYER").getCharStats().getHP()
+                            + "\n Enemy hp:" + currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP());
+                }
+            }
+            if(currEvent.getName().equals("DEFEND")) {
+                if(theGoodFight == false){
+                    ta.append("\n What are you even trying to block");
+                } else if(currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP() <= 0) {
+                    ta.append("\n There is no t-bagging in this game you look like a fool");
+                }else if (currLocation.listOfCharacters.get("PLAYER").getCharStats().getDef() >= 30) {
+                    ta.append("\n Olivia Said your defense cant go that high :(");
+                }else{
+                    currLocation.Fight(currLocation.listOfCharacters.get("PLAYER"), currLocation.listOfCharacters.get("TALK TO TROLL"), "DEFEND");
+                    ta.append("\n You raise your shield to the sun, imbued with sunlight your shield receives + 2 Defense ");
+                    ta.append("\n Your Defense is now:" + currLocation.listOfCharacters.get("PLAYER").getCharStats().getDef());
+                    ta.append("\n The Troll mocks you calling you a coward for trying to block his attack but ultimately do nothing");
+                }
+            }
+            //End of Cameron's Fight Shenanigans
+            
+        } catch(NullPointerException e){
+            tf.setText(null);
+        }
+
+    }
         } catch(NullPointerException e){
             tf.setText(null);
         }
