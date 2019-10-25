@@ -6,14 +6,16 @@ import javax.swing.*;
 
 public class GamePanel extends JPanel {
     /** Unused yet.  Has image loaded into GUI */
-    private ImageIcon testImage;
+    ImageIcon icon = new ImageIcon("THaas.jpg");
+
     /** menu for GUI */
     public JMenuBar mb;
     JMenu m1;
     JButton m2;
     JMenuItem m11, m22;
     public JPanel panel;
-    JLabel label;
+    JLabel label, lbl;
+
     /** user puts commands in this line */
     JTextField tf;
     /** sends text in user command line to panel */
@@ -62,6 +64,7 @@ public class GamePanel extends JPanel {
     private void setPanel() {
         panel = new JPanel();
         label = new JLabel("Enter Text");
+        //lbl.setIcon(icon); // Sets image
         tf = new JTextField(20); // accepts up to 20 characters
         send = new JButton("Send");
         send.addActionListener(listener);
@@ -96,10 +99,11 @@ public class GamePanel extends JPanel {
 
         try {
             Event currEvent = currLocation.getEvent(cmd);
-            if (currEvent != null)
+            if (currEvent != null) {
                 ta.append(currEvent.getFlavorText());
-            ta.setCaretPosition(ta.getDocument().getLength());
-            tf.setText(null);
+                ta.setCaretPosition(ta.getDocument().getLength());
+                tf.setText(null);
+            }
 
             //updates location if event has a location
             if (currEvent.getLocation() != null)

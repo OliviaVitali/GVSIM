@@ -18,5 +18,7 @@ public class GUI {
         frame.getContentPane().add(BorderLayout.CENTER, panel.scroll);
         frame.setVisible(true);
         frame.getRootPane().setDefaultButton(panel.send);
+        //frame.add(panel.lbl);
+        frame.setVisible(true);
     }
 }

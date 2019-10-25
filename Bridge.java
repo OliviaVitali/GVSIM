@@ -42,10 +42,10 @@ public class Bridge extends Location {
         listOfCharacters.put("TALK TO TROLL", new Character());
         Character currChar = listOfCharacters.get("TALK TO TROLL");
         currChar.setCharName("Gargafart");
-        currChar.getCharStats().setAllStats(5, 1, 1, 2);
+        currChar.getCharStats().setAllStats(5, 7, 1, 2);
         listOfCharacters.put("PLAYER", new Character());
         currChar = listOfCharacters.get("PLAYER");
-        currChar.getCharStats().setAllStats(20,4,3,2);
+        currChar.getCharStats().setAllStats(20,5,3,2);
     }
  @Override
     protected void Fight(Character m, Character e, String str) {
@@ -80,8 +80,8 @@ public class Bridge extends Location {
                     } else {
                         m.getCharStats().damageCalculations(e.getCharStats().getStr() - m.getCharStats().getDef());
                         System.out.println("Enemy Deals " + (e.getCharStats().getStr() - m.getCharStats().getDef()) + " Damage \n Your Hp is:" + m.getCharStats().getHP());
-                        roundOver = true;
                     }
+                    roundOver = true;
                 }
             }
                 if(str == "DEFEND"){
