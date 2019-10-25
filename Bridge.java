@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 public class Bridge extends Location {
-    public boolean fighting
+    public boolean fighting;
     public Bridge(){
         createEventList();
         createMap();
