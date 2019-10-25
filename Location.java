@@ -15,6 +15,8 @@ public abstract class Location {
 
     protected abstract void createMap();
     protected abstract String getMap();
+    protected abstract void Fight(Character m,Character e,String str);
+
 
     protected abstract void createCharList();
     protected abstract void setDescription();
