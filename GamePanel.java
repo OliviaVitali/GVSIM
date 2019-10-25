@@ -37,7 +37,7 @@ public class GamePanel extends JPanel {
         listener = new listener();
         // Text Area at the Center
         ta = new JTextArea(5, 5);
-        ta.setText("Welcome to GVSimulator! Type LOOK to take a peek at the world around you!");
+        ta.setText("Welcome to GVSimulator! Type LOOK to take a peek at the world around you! \nUse only capital letters.");
         scroll = new JScrollPane(ta);
         ta.setEditable(false);
 
