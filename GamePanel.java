@@ -9,7 +9,8 @@ public class GamePanel extends JPanel {
     private ImageIcon testImage;
     /** menu for GUI */
     public JMenuBar mb;
-    JMenu m1, m2;
+    JMenu m1;
+    JButton m2;
     JMenuItem m11, m22;
     public JPanel panel;
     JLabel label;
@@ -21,6 +22,7 @@ public class GamePanel extends JPanel {
     JButton reset;
     /** text displayed on GUI */
     JTextArea ta;
+    /** makes the text area scrollable */
     JScrollPane scroll;
     /** listens to mouse clicks for GUI and relays them to panel*/
     ActionListener listener;
@@ -37,6 +39,7 @@ public class GamePanel extends JPanel {
         ta = new JTextArea(5, 5);
         ta.setText("Welcome to GVSimulator! Type LOOK to take a peek at the world around you!");
         scroll = new JScrollPane(ta);
+        ta.setEditable(false);
 
         setMenu();
         //Creating the panel at bottom and adding components
@@ -49,6 +52,7 @@ public class GamePanel extends JPanel {
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
         listAllLocations.put("MACKINAC", new Mackinac());
+        listAllLocations.put("PADNOS", new Padnos());
         //listAllLocations.put("FIGHT", new Fight());
         currLocation = listAllLocations.get("GATE");
         
@@ -69,47 +73,33 @@ public class GamePanel extends JPanel {
         panel.add(reset);
     }
 
-    /**
-     * helper method to set up Menu for GUI
-     */
     private void setMenu() {
         //Creating the MenuBar and adding components
         mb = new JMenuBar();
-        m1 = new JMenu("FILE");
-        m2 = new JMenu("Help");
-        mb.add(m1);
+        //m1 = new JMenu("File");
+        m2 = new JButton("Help");
+        //mb.add(m1);
         mb.add(m2);
-        m11 = new JMenuItem("Open");
-        m22 = new JMenuItem("Save as");
-        m1.add(m11);
-        m1.add(m22);
+        m2.addActionListener(listener);
+        //m11 = new JMenuItem("Open");
+        //m22 = new JMenuItem("Save as");
+        //m1.add(m11);
+        //m1.add(m22);
     }
 
-    /**
-     * helper method that sets background image
-     * TODO not working right now
-     */
     private void createBackgroundImages() {
         testImage = new ImageIcon("./src/CIS350");
     }
 
-    /**
-     * Passes user command to location and gets Event.  This is where
-     * the actual updating of the game state occurs.
-     * If we do a save game option, it will probably reference this
-     * method
-     * @param userCommand
-     */
     private void updateEvent(String userCommand){
-        //converts user input to Upper case for simplicity
         String cmd = userCommand.toUpperCase();
 
-        //only accepts valid commands
         try{
             Event currEvent = currLocation.getEvent(cmd);
             if (currEvent != null)
                 ta.append(currEvent.getFlavorText());
                 ta.setCaretPosition(ta.getDocument().getLength());
+                tf.setText(null);
 
             //updates location if event has a location
             if (currEvent.getLocation() != null)
@@ -117,24 +107,25 @@ public class GamePanel extends JPanel {
 //            if (!currLocation.getName().equals("FIGHT"))
 //                prevLocation = currLocation;
         } catch(NullPointerException e){
-            //resets user text area if invalid command
             tf.setText(null);
         }
 
     }
 
-    /**
-     * Private class that contains listener.  Listener is used to
-     * connect buttons in GUI to panel
-     */
     private class listener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            //sends user Command to panel
             if (send == event.getSource())
                 updateEvent(tf.getText());
-            //resets text area for user
             if (reset == event.getSource())
                 tf.setText(null);
+            if (m2 == event.getSource()) {
+                for (String command : currLocation.mapOfEvents.keySet()){
+                    String variableKey = command;
+                    ta.append("\n" + variableKey);
+                }
+            }
         }
     }
 }
+
+//end GamePanel

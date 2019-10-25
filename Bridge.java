@@ -9,7 +9,9 @@ public class Bridge extends Location {
     @Override
     protected void createEventList() {
         mapOfEvents = new HashMap<String, Event>();
-        mapOfEvents.put("LOOK", new Event("LOOK", "You find yourself at the BRIDGE over a steep ravine. You are not alone."));
+        mapOfEvents.put("LOOK", new Event("LOOK", "\nYou find yourself at the BRIDGE over a steep ravine. You are not alone."));
+        mapOfEvents.put("GO TO GATE", new Event("GO TO GATE", "\nYou walk towards the Transformation Link"));
+        mapOfEvents.get("GO TO GATE").setLocation("GATE");
     }
 
     @Override
