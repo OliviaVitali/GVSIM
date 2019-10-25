@@ -30,6 +30,11 @@ public class Padnos extends Location{ //TODO: add Neurochem??
     }
 
     @Override
+    protected void Fight(Character m, Character e, String str){
+
+    }
+    
+    @Override
     protected String getMap() {
         String temp = "";
         for (int i = 0; i < listOfTraversable.length; i++){
