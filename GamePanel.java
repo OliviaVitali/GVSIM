@@ -99,6 +99,7 @@ public class GamePanel extends JPanel {
             if (currEvent != null)
                 ta.append(currEvent.getFlavorText());
                 ta.setCaretPosition(ta.getDocument().getLength());
+                tf.setText(null);
 
             //updates location if event has a location
             if (currEvent.getLocation() != null)
