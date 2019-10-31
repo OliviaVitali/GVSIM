@@ -27,7 +27,11 @@ public class Gate extends Location{
         listOfTraversable[0] = "BRIDGE";
 
     }
+    @Override
+    protected void Fight(Character m, Character e, String str){
 
+    }
+    
     @Override
     protected String getMap() {
         String temp = "";

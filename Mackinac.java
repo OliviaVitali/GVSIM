@@ -28,6 +28,11 @@ public class Mackinac extends Location {
     }
 
     @Override
+    protected void Fight(Character m, Character e, String str){
+
+    }
+    
+    @Override
     protected void createCharList() {
         listOfCharacters = new HashMap<String, Character>();
     }

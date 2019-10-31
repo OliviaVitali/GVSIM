@@ -9,6 +9,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setBackground(Color.PINK);
+
         GamePanel panel = new GamePanel();
 
         //Adding Components to the frame.
@@ -17,6 +18,7 @@ public class GUI {
         frame.getContentPane().add(BorderLayout.CENTER, panel.scroll);
         frame.setVisible(true);
         frame.getRootPane().setDefaultButton(panel.send);
-
+        //frame.add(panel.lbl);
+        frame.setVisible(true);
     }
 }
