@@ -8,6 +8,10 @@ public class Character {
     private InventoryItem[] inventoryItems;
     private Stats charStats;
     private boolean isPlayer;
+    private String description;
+    private String list;
+
+
 
     public String getCharName() {
         return charName;
@@ -17,12 +21,13 @@ public class Character {
         this.charName = charName;
     }
 
-    public Map<String, String> getSpeechOptions() {
-        return speechOptions;
+    public String getSpeechOptions() {
+        return list;
     }
 
     public void setSpeechOptions(String call, String response) {
         this.speechOptions.put(call, response);
+        list += "\n " + call.toLowerCase();
     }
 
     public InventoryItem getInventoryItems(int i) {
@@ -49,22 +54,23 @@ public class Character {
         isPlayer = player;
     }
 
-    public Character(){
+    public Character() {
         charName = "Jenny";
+        description = "\nA girl with a cell phone in her hand.";
         speechOptions = new HashMap<String, String>();
-        speechOptions.put("HELLO", "...world?");
-        speechOptions.put("HI", "It's nice to meet you.");
+        speechOptions.put("HELLO", "\n...world?");
+        speechOptions.put("HI", "\nIt's nice to meet you.");
         inventoryItems = new InventoryItem[1];
-        inventoryItems[0] = new InventoryItem("Car Keys", "These keys belong to " + charName);
+        inventoryItems[0] = new InventoryItem("Car Keys", "\nThese keys belong to " + charName);
         charStats = new Stats(8, 6, 7, 5);
         isPlayer = false;
     }
 
-    public String getSpeech(String userCommand){
-        return speechOptions.get(userCommand.toUpperCase());
+    public String getSpeech(String userCommand) {
+        return speechOptions.get(userCommand);
     }
 
-    public boolean isFigthable(){
+    public boolean isFigthable() {
         if (charStats == null)
             return false;
         return true;
