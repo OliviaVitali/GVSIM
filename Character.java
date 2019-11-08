@@ -70,7 +70,7 @@ public class Character {
         return speechOptions.get(userCommand);
     }
 
-    public boolean isFigthable() {
+    public boolean isFightable() {
         if (charStats == null)
             return false;
         return true;
