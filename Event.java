@@ -5,11 +5,11 @@
  */
 public class Event {
 
-    String name;
-    protected String flavorText;
-    protected InventoryItem inventoryItem;
-    protected Character npc;
-    protected String location;
+    private String name;
+    private String flavorText;
+    private InventoryItem inventoryItem;
+    private Character npc;
+    private String location;
 
     public Event(){
         name = "Event";
@@ -50,7 +50,7 @@ public class Event {
     }
 
     public void setFlavorText(String flavorText) {
-        if (flavorText != null) this.flavorText += flavorText;
+        if (flavorText != null)this.flavorText = flavorText;
     }
 
     public InventoryItem getInventoryItem() {
@@ -67,17 +67,7 @@ public class Event {
         return null;
     }
 
-
     public void setNpc(Character npc) {
-        if (npc != null) {
-            this.npc = npc;
-        }
-    }
-
-    public String getSpeech() {
-        if (npc != null) {
-            return npc.getSpeech(name);
-        }
-        return "";
+        if (npc != null) this.npc = npc;
     }
 }

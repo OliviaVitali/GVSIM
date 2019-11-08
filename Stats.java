@@ -24,7 +24,7 @@ public class Stats {
     }
     
     public void damageCalculations(int hit){
-        hp -= hit - defense;
+    hp -= hit;
     }
     
     public void changeStr(int i){
