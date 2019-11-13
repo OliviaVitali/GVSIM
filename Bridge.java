@@ -1,15 +1,37 @@
 import java.util.HashMap;
 
+/***********************************************************************************************************************
+ * Bridge is a traversable location in the game.  The player's string command is passed in and is the most often
+ * referenced when deciding output
+ * @author Olivia Vitali
+ * @author Cameron Shearan
+ * @version 2
+ */
 public class Bridge extends Location {
+    /** indicates if the player is in a fight */
     public boolean fighting;
+
+    /*******************************************************************************************************************
+     * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
+     * events related to the flavor text.
+     ******************************************************************************************************************/
     public Bridge(){
+        //order listed below should not be changed
         setDescription();
         createCharList();
         createEventList();
         createMap();
+        //by default, the player is not in a fight
         fighting = false;
     }
-    @Override
+
+
+    /*******************************************************************************************************************
+     * Helper method to create list of events.  An event is triggered by the string (user input) and will return a
+     * string intended to be displayed on the GUI along with other information in the event like the NPC or the
+     * secondary location the user is traveling to
+     ********************************************************************************************************************/
+ @Override
     protected void createEventList() {
         mapOfEvents = new HashMap<String, Event>();
         mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
@@ -28,20 +50,32 @@ public class Bridge extends Location {
         mapOfEvents.put("DEFEND",new Event("DEFEND", ""));
     }
 
-    @Override
+    /*******************************************************************************************************************
+     * getter method to return event based on user input
+     ******************************************************************************************************************/
+ @Override
     protected Event getEvent(String userCommand) {
         //System.out.println(mapOfEvents.get(userCommand).getName());
         return mapOfEvents.get(userCommand);
     }
 
+    /*******************************************************************************************************************
+     * helper method for debugging.  Lists possible locations the user can travel to.  Note: this doesn't correspond to
+     * an event creation.  Actual travel events are created in createEvents
+     ******************************************************************************************************************/
     @Override
     protected void createMap() {
-
+        listOfTraversable = new String[1];
+        listOfTraversable[0] = "GATE";
     }
 
+    /*******************************************************************************************************************
+     *
+     * @return list of traversable locations
+     */
     @Override
     protected String getMap() {
-        return null;
+        return listOfTraversable;
     }
 
     @Override
