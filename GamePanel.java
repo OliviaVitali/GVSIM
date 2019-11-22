@@ -3,6 +3,11 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
 
+/**
+* this is the game.  It holds all the objects, players, locations and navigation through the game
+* @author Olivia Vitali
+* @version 4
+*/
 public class GamePanel extends JPanel {
     /**
      * Unused yet.  Has image loaded into GUI
@@ -75,11 +80,18 @@ public class GamePanel extends JPanel {
      */
     Event currEvent;
 
+    /**
+    * Constructor for GamePanel
+    * Instantiates most objects referenced in game
+    */
     public GamePanel() {
+        /** connect GUI to panel */
         listener = new listener();
-        // Text Area at the Center
+        /** Text Area at the Center */
         ta = new JTextArea(5, 5);
+        //helper to create some flavor text
         createdicFlavorText();
+        //sets current text to Intro on GUI
         ta.setText(dicFlavorText.get("intro"));
         scroll = new JScrollPane(ta);
         ta.setEditable(false);
@@ -99,7 +111,11 @@ public class GamePanel extends JPanel {
         currChar = new Character();
     }
 
+    /**
+    * helper method to create flavortext for game not used elsewhere
+    */
     private void createdicFlavorText() {
+      /** map of abbreviation and text for GUI*/
         dicFlavorText = new HashMap<>();
         dicFlavorText.put("intro",
                 "Welcome to GVSimulator! " +
@@ -111,15 +127,25 @@ public class GamePanel extends JPanel {
         dicFlavorText.put("TALK", "\n You are talking to ");
     }
 
+    /**
+    * helper method for constructory
+    * creates all locations for the game
+    */
     private void createLocations() {
         listAllLocations = new HashMap<String, Location>();
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
         listAllLocations.put("MACKINAC", new Mackinac());
+        //sets default location to GATE
         currLocation = listAllLocations.get("GATE");
+        //added for flavor text helper in GUI
         dicFlavorText.put("map", "\nBridge--------Gate\n|\n|\n|\nMackinac");
     }
 
+    /**
+    * helper method for constructor
+    * adds panel information for GUI
+    */
     private void setPanel() {
         panel = new JPanel();
         label = new JLabel("Enter Text");
@@ -136,6 +162,10 @@ public class GamePanel extends JPanel {
         panel.add(reset);
     }
 
+    /**
+    * helper method for constructor
+    * sets menu to items for panel
+    */
     private void setMenu() {
         //Creating the MenuBar and adding components
         mb = new JMenuBar();
@@ -159,6 +189,10 @@ public class GamePanel extends JPanel {
         //m1.add(m22);
     }
 
+    /**
+    * when in a conversation, user is re-routed here to directly translate
+    * user commands and returns character's responses
+    */
     private void conversation(String cmd, Character c) {
         //handles conversation with npc
 
