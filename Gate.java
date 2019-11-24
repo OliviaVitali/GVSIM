@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class Gate extends Location{
+public class Gate extends Location {
     public Gate() {
         setDescription();
         createMap();

@@ -35,14 +35,15 @@ public class Bridge extends Location {
     protected void createEventList() {
         mapOfEvents = new HashMap<String, Event>();
         mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
-        mapOfEvents.put("GO TO GATE", new Event("GO TO GATE", "\nYou walk towards the Transformation Link"));
+        mapOfEvents.put("GO TO GATE", new Event("GO TO GATE",
+                "\nYou walk towards the Transformation Link"));
         mapOfEvents.get("GO TO GATE").setLocation("GATE");
         mapOfEvents.put("CHECK UNDER BRIDGE", new Event(
                 "CHECK UNDER BRIDGE", "\n There is " +
-                "something in the shadows it is eyeing you looking" +
-                " for a fight"));
+                "something in the shadows; it is looking for a fight"));
         mapOfEvents.put("FIGHT TROLL", new Event("FIGHT TROLL",
-                "From under the bridge crawls a troll.  He looks like he spends a lot of time online."));
+                "From under the bridge crawls a troll. He looks like" +
+                        " he spends a lot of time online."));
         mapOfEvents.get("FIGHT TROLL").setNpc(listOfCharacters.get("FIGHT TROLL"));
 
         mapOfEvents.put("ATTACK", new Event("ATTACK",""));
@@ -75,7 +76,7 @@ public class Bridge extends Location {
      */
     @Override
     protected String getMap() {
-        return listOfTraversable;
+        return listOfTraversable.toString();
     }
 
     @Override
