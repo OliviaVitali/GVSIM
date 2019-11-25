@@ -33,6 +33,8 @@ public class Padnos extends Location { //TODO: add Neurochem
         mapOfEvents.put("GO TO HENRY HALL", new Event("GO TO HENRY HALL",
                 "You walk toward Henry Hall."));
         mapOfEvents.get("GO TO HENRY HALL").setLocation("HENRY HALL");
+        mapOfEvents.put("GO TO BRIDGE", new Event("GO TO BRIDGE",
+                "You leave Padnos and walk back to the bridge."));
 
     }
 
@@ -45,7 +47,7 @@ public class Padnos extends Location { //TODO: add Neurochem
 
     @Override
     protected void Fight(Character m, Character e, String str){
-
+    //todo: fill in
     }
     
     @Override
@@ -59,7 +61,7 @@ public class Padnos extends Location { //TODO: add Neurochem
     }
 
     protected Event getEvent(String userCommand) {
-        System.out.println(mapOfEvents.get(userCommand));
+       // System.out.println(mapOfEvents.get(userCommand));
         return mapOfEvents.get(userCommand);
     }
 

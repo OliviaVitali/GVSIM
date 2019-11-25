@@ -76,7 +76,7 @@ public class Bridge extends Location {
      */
     @Override
     protected String getMap() {
-        return listOfTraversable.toString();
+        return listOfTraversable.toString();//should this be toString? I had a problem with return types. -Sarah
     }
 
     @Override
