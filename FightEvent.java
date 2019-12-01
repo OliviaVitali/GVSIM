@@ -7,6 +7,7 @@ public class FightEvent extends Event {
         name = "FIGHT " + npc.getCharName();
         this.npc = npc;
         this.player = player;
+        System.out.println(name);
 
     }
 

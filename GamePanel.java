@@ -106,6 +106,7 @@ public class GamePanel extends JPanel {
         player = new Character();
         player.setIsPlayer(true);
         player.setCharName("ORCS");
+        player.getCharStats().setAllStats(20,5,3,2);
         //by default, current character is set to Jenny.
         //if you reach Jenny, you've messed up
         currChar = new Character();
@@ -241,7 +242,7 @@ public class GamePanel extends JPanel {
             //if a player triggers a non-fighting event, navigate away
             //from fight
             if (!currEvent.getName().contains("FIGHT"))
-                theGoodFight = false;
+                //theGoodFight = false;
             //favortext update for game
             ta.append(currEvent.getFlavorText());
             ta.setCaretPosition(ta.getDocument().getLength());
@@ -254,15 +255,25 @@ public class GamePanel extends JPanel {
             tf.setText(null);
         }
         try {
+            System.out.println("is this working");
             //this is the character we're interacting with
             currChar = currEvent.getNpc();
             //triggers conversation with NPC
             if (cmd.contains("TALK")) {
                 isConvo = true;
                 conversation(cmd, currChar);
+                //This Triggers the Fight Mechanic if it is available
             } else if (cmd.contains("FIGHT")) {
-                theGoodFight = true;
+                System.out.println("it is");
                 CameronsFightShenanigans(currEvent, cmd, currChar);
+                theGoodFight = true;
+                //Needed for if someone chooses attack
+            }else if (cmd.contains("ATTACK")){
+                System.out.println("Does this one worko");
+                CameronsFightShenanigans(currEvent, cmd, currChar);
+            }else if(cmd.contains("DEFEND")){
+                System.out.println("DEFEEENNNDDDDD");
+                CameronsFightShenanigans(currEvent,cmd,currChar);
             }
         } catch (NullPointerException e) {
             tf.setText(null);
@@ -285,55 +296,72 @@ public class GamePanel extends JPanel {
     /******************************************************************
      * Updates game's fighting state
      * @param currEvent is the event related to the fight
-     */
+     *****************************************************************/
     private void CameronsFightShenanigans(Event currEvent, String userCommand, Character opp) {
         //Start of Cameron's Fight Shenanigans
-        if (currEvent.getName().equals("FIGHT TROLL")) {
-            if (userCommand.contains("FIGHT"))
-                ta.append(opp.getSpeech(userCommand));
-
-            if (currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP() <= 0) {
+        //If the string contains fight it runs and uses print statements to test if working
+        //Also makes sure to initialize a fight unless one is already initialized
+        if (currEvent.getName().contains("FIGHT")) {
+            System.out.println(userCommand);
+           if (userCommand.contains("FIGHT")) {
+               System.out.println(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
+               System.out.println("2");
+              // ta.append(opp.getSpeech(userCommand));
+               System.out.println("9");
+            }
+            //If the character is already dead why fight it
+            if(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP() <= 0) {
+                System.out.println("14");
                 ta.append("\n You can't fight a dead body -_-");
 
+                //If your already in a fight why are you trying to start another
             } else if (theGoodFight == true) {
+                System.out.println("6");
                 ta.append("\n You are already in a fight. LOOK ALIVE.");
 
             } else {
+                //Starting up the fight
+                theGoodFight = true;
+                currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "START");
+                System.out.println("3");
                 ta.append("\n LET THE FIGHT BEGIN");
-                ta.append("\n Player Stats: \n Hp = " + currLocation.listOfCharacters.get("PLAYER").getCharStats().getHP());
-                ta.append("\n Str = " + currLocation.listOfCharacters.get("PLAYER").getCharStats().getStr());
-                ta.append("\n Def = " + currLocation.listOfCharacters.get("PLAYER").getCharStats().getDef());
-                ta.append("\n Spd = " + currLocation.listOfCharacters.get("PLAYER").getCharStats().getSpd());
+                ta.append("\n Player Stats: \n Hp = " + player.getCharStats().getHP());
+                ta.append("\n Str = " + player.getCharStats().getStr());
+                ta.append("\n Def = " + player.getCharStats().getDef());
+                ta.append("\n Spd = " + player.getCharStats().getSpd());
                 ta.append("\n" + currLocation.listOfCharacters.get("FIGHT TROLL").getCharName() + " Stats: \n Hp = " +
                         currLocation.listOfCharacters.get("FIGHT TROLL").getCharStats().getHP());
                 ta.append("\n Str = " + opp.getCharStats().getStr());
                 ta.append("\n Def = " + currLocation.listOfCharacters.get("FIGHT TROLL").getCharStats().getDef());
                 ta.append("\n Spd = " + currLocation.listOfCharacters.get("FIGHT TROLL").getCharStats().getSpd());
-                currLocation.Fight(currLocation.listOfCharacters.get("FIGHT TROLL"), currLocation.listOfCharacters.get("TALK TO TROLL"), "START");
-                theGoodFight = true;
             }
         }
+        //Attack logic
         if (currEvent.getName().equals("ATTACK")) {
             if (theGoodFight == false) {
                 ta.append("\n Maaaayyybbbbeeee you should try and initiate a fight before you go attacking someone");
 
-            } else if (currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP() <= 0) {
+            }
+            //no overkill
+            else if (currLocation.listOfCharacters.get("TROLL").getCharStats().getHP() <= 0) {
                 ta.append("\n They are already dead R E L A X");
-            } else {
-                currLocation.Fight(currLocation.listOfCharacters.get("PLAYER"), currLocation.listOfCharacters.get("TALK TO TROLL"), "ATTACK");
+            }
+            //Allow the Fight
+            else {
+                currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "ATTACK");
                 ta.append("\n You Attack the Troll and he Attacks back \n Player hp:" + currLocation.listOfCharacters.get("PLAYER").getCharStats().getHP()
-                        + "\n Enemy hp:" + currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP());
+                        + "\n Enemy hp:" + currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
             }
         }
         if (currEvent.getName().equals("DEFEND")) {
             if (theGoodFight == false) {
                 ta.append("\n What are you even trying to block");
-            } else if (currLocation.listOfCharacters.get("TALK TO TROLL").getCharStats().getHP() <= 0) {
+            } else if (currLocation.listOfCharacters.get("TROLL").getCharStats().getHP() <= 0) {
                 ta.append("\n There is no t-bagging in this game you look like a fool");
             } else if (currLocation.listOfCharacters.get("PLAYER").getCharStats().getDef() >= 30) {
-                ta.append("\n Olivia Said your defense cant go that high :(");
+                ta.append("\n Olivia Said your defense cant go that high");
             } else {
-                currLocation.Fight(currLocation.listOfCharacters.get("PLAYER"), currLocation.listOfCharacters.get("TALK TO TROLL"), "DEFEND");
+                currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "DEFEND");
                 ta.append("\n You raise your shield to the sun, imbued with sunlight your shield receives + 2 Defense ");
                 ta.append("\n Your Defense is now:" + currLocation.listOfCharacters.get("PLAYER").getCharStats().getDef());
                 ta.append("\n The Troll mocks you calling you a coward for trying to block his attack but ultimately do nothing");

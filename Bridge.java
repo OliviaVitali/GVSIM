@@ -4,7 +4,7 @@ import java.util.HashMap;
  * Bridge is a traversable location in the game.  The player's string command is passed in and is the most often
  * referenced when deciding output
  * @author Olivia Vitali
- * @author Cameron Shearan
+ * @author Cameron Shearer
  * @version 2
  */
 public class Bridge extends Location {
@@ -73,7 +73,7 @@ public class Bridge extends Location {
     /*******************************************************************************************************************
      *
      * @return list of traversable locations
-     */
+     ******************************************************************/
     @Override
     protected String getMap() {
         return listOfTraversable.toString();//should this be toString? I had a problem with return types. -Sarah
@@ -82,8 +82,8 @@ public class Bridge extends Location {
     @Override
     protected void createCharList() {
     listOfCharacters = new HashMap<String, Character>();
-        listOfCharacters.put("FIGHT TROLL", new Character());
-        Character currChar = listOfCharacters.get("FIGHT TROLL");
+        listOfCharacters.put("TROLL", new Character());
+        Character currChar = listOfCharacters.get("TROLL");
         currChar.setCharName("Gargafart the troll");
         currChar.setSpeechOptions("FIGHT", "I'm a troll and I want to fight you!");
         ;
@@ -113,6 +113,7 @@ public class Bridge extends Location {
                 gameOver = true;
             }
             if (str == "ATTACK") {
+                System.out.println("Is this working.jpg");
                 if (e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
                     if (e.getCharStats().getDef() > m.getCharStats().getStr()) {
                         System.out.println("This mans too stronk");
