@@ -329,11 +329,11 @@ public class GamePanel extends JPanel {
                 ta.append("\n Str = " + player.getCharStats().getStr());
                 ta.append("\n Def = " + player.getCharStats().getDef());
                 ta.append("\n Spd = " + player.getCharStats().getSpd());
-                ta.append("\n" + currLocation.listOfCharacters.get("FIGHT TROLL").getCharName() + " Stats: \n Hp = " +
-                        currLocation.listOfCharacters.get("FIGHT TROLL").getCharStats().getHP());
-                ta.append("\n Str = " + opp.getCharStats().getStr());
-                ta.append("\n Def = " + currLocation.listOfCharacters.get("FIGHT TROLL").getCharStats().getDef());
-                ta.append("\n Spd = " + currLocation.listOfCharacters.get("FIGHT TROLL").getCharStats().getSpd());
+                ta.append("\n" + currLocation.listOfCharacters.get("TROLL").getCharName() + " Stats: \n Hp = " +
+                        currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
+                ta.append("\n Str = " + currLocation.listOfCharacters.get("TROLL").getCharStats().getStr());
+                ta.append("\n Def = " + currLocation.listOfCharacters.get("TROLL").getCharStats().getDef());
+                ta.append("\n Spd = " + currLocation.listOfCharacters.get("TROLL").getCharStats().getSpd());
             }
         }
         //Attack logic
@@ -349,7 +349,7 @@ public class GamePanel extends JPanel {
             //Allow the Fight
             else {
                 currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "ATTACK");
-                ta.append("\n You Attack the Troll and he Attacks back \n Player hp:" + currLocation.listOfCharacters.get("PLAYER").getCharStats().getHP()
+                ta.append("\n You Attack the Troll and he Attacks back \n Player hp:" + player.getCharStats().getHP()
                         + "\n Enemy hp:" + currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
             }
         }
@@ -358,12 +358,12 @@ public class GamePanel extends JPanel {
                 ta.append("\n What are you even trying to block");
             } else if (currLocation.listOfCharacters.get("TROLL").getCharStats().getHP() <= 0) {
                 ta.append("\n There is no t-bagging in this game you look like a fool");
-            } else if (currLocation.listOfCharacters.get("PLAYER").getCharStats().getDef() >= 30) {
+            } else if (player.getCharStats().getDef() >= 30) {
                 ta.append("\n Olivia Said your defense cant go that high");
             } else {
                 currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "DEFEND");
                 ta.append("\n You raise your shield to the sun, imbued with sunlight your shield receives + 2 Defense ");
-                ta.append("\n Your Defense is now:" + currLocation.listOfCharacters.get("PLAYER").getCharStats().getDef());
+                ta.append("\n Your Defense is now:" + player.getCharStats().getDef());
                 ta.append("\n The Troll mocks you calling you a coward for trying to block his attack but ultimately do nothing");
             }
         }
