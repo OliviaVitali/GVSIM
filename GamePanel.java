@@ -2,6 +2,7 @@ import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
+import java.util.Random;
 
 /**
 * this is the game.  It holds all the objects, players, locations and navigation through the game
@@ -80,6 +81,10 @@ public class GamePanel extends JPanel {
      */
     Event currEvent;
 
+    /**
+     * The current default hp which is needed to reset after a fight
+     */
+    int defaultHp = 20;
     /**
     * Constructor for GamePanel
     * Instantiates most objects referenced in game
@@ -306,7 +311,7 @@ public class GamePanel extends JPanel {
            if (userCommand.contains("FIGHT")) {
                System.out.println(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
                System.out.println("2");
-              // ta.append(opp.getSpeech(userCommand));
+               ta.append(currLocation.listOfCharacters.get("TROLL").getSpeech(userCommand));
                System.out.println("9");
             }
             //If the character is already dead why fight it
@@ -368,6 +373,23 @@ public class GamePanel extends JPanel {
             }
         }
         //End of Cameron's Fight Shenanigans
+        if(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP()==0){
+            //Player level up
+            player.getCharStats().resetHp(defaultHp);
+            Random levelup = new Random();
+            int hplvl = levelup.nextInt(4);
+            int strlvl = levelup.nextInt(4);
+            int deflvl = levelup.nextInt(4);
+            int spdlvl = levelup.nextInt(4);
+            defaultHp = player.getCharStats().getHP()+hplvl;
+            player.getCharStats().setAllStats(player.getCharStats().getHP()+hplvl,player.getCharStats().getStr() +strlvl,
+                    player.getCharStats().getSpd() +spdlvl,player.getCharStats().getDef() +deflvl);
+            ta.append("\n You Leveled up!!!!!!");
+            ta.append("\n Increased Stats to: \n Hp = " + player.getCharStats().getHP());
+            ta.append("\n Str = " + player.getCharStats().getStr());
+            ta.append("\n Def = " + player.getCharStats().getDef());
+            ta.append("\n Spd = " + player.getCharStats().getSpd());
+        }
 
     }
 

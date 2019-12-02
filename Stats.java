@@ -62,6 +62,14 @@ public class Stats {
     }
 
     /******************************************************************
+     * This method is to reset hp to original after a fight
+     * @param i original hp
+     *****************************************************************/
+    public void resetHp(int i){
+        hp = i;
+    }
+
+    /******************************************************************
      * Updates only Defense
      * @param i number to add to defense
      *****************************************************************/
