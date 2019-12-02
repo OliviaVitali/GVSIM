@@ -4,9 +4,9 @@ import java.util.Map;
 import javax.swing.*;
 import java.util.Random;
 
-/**
+/************************************************************************************************
 * this is the game.  It holds all the objects, players, locations and navigation through the game
-* @author Olivia Vitali
+* @author Olivia Vitali, Fight by Cameron Shearer
 * @version 4
 */
 public class GamePanel extends JPanel {
@@ -479,15 +479,17 @@ public class GamePanel extends JPanel {
                 } else ta.append("\nYou're not talking to anyone.");
                 ta.append(dicFlavorText.get(""));
             }
-            if (fightChoices == event.getSource()) {
+            if (fightChoices == event.getSource() && currLocation.name == "BRIDGE") {
                 ta.append(dicFlavorText.get(""));
-                if (theGoodFight)
-                    ta.append("You're in a fight with " + currChar.getCharName());
-                else ta.append("You're not in a fight.");
-                ta.append(dicFlavorText.get(""));
+                ta.append("You can fight" + "Gargafart the Troll");
+                ta.append("You Have access to the following commands while in a fight" +
+                        "\n Attack: You will hit the Troll for your attack minus his defense (Must Fight Troll First)" +
+                        "\n Defend: This will Raise your Defense by 2(Must Fight Troll First)" +
+                        "\n Fight Troll: This will antagonize the Troll into a fight(Can only Start once)");
+
+                }
             }
         }
     }
-}
 
 //end GamePanel
