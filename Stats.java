@@ -6,11 +6,12 @@
 public class Stats {
 
     //Instance variables for all the stats
-    private int hp, strength, speed, defense;
+    private int hp, strength, speed, defense,level;
     /******************************************************************
      * Sets The Default Stats for a Character
      *****************************************************************/
     public Stats(){
+        level = 5;
         hp=1;
         strength=1;
         speed=1;
@@ -70,6 +71,13 @@ public class Stats {
     }
 
     /******************************************************************
+     * Level up the character
+     * @param i level of character
+     *****************************************************************/
+    public void levelUp(int i){
+        level = i;
+    }
+    /******************************************************************
      * Updates only Defense
      * @param i number to add to defense
      *****************************************************************/
@@ -115,5 +123,13 @@ public class Stats {
      *****************************************************************/
     public int getSpd(){
         return speed;
+    }
+
+    /******************************************************************
+     * Returns Level
+     * @return the level of the character
+     *****************************************************************/
+    public int getLevel(){
+        return level;
     }
 }

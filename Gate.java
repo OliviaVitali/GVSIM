@@ -48,7 +48,7 @@ public class Gate extends Location {
 
     }
     @Override
-    protected void Fight(Character m, Character e, String str){
+    protected void Fight(Character m, Character e, String str,int movepool){
 
     }
     

@@ -34,7 +34,7 @@ public abstract class Location {
     protected abstract void createMap();
     /** helper method to return list of traversable places */
     protected abstract String getMap();
-    protected abstract void Fight(Character m,Character e,String str);
+    protected abstract void Fight(Character m,Character e,String str,int movepool);
 
 
     /** helper for constructor  to make characters (excluding player)*/

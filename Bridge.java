@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Random;
 
 /***********************************************************************************************************************
  * Bridge is a traversable location in the game.  The player's string command is passed in and is the most often
@@ -10,6 +11,8 @@ import java.util.HashMap;
 public class Bridge extends Location {
     /** indicates if the player is in a fight */
     public boolean fighting;
+    /** restrictions so troll cant use special move twice */
+    int restrictions;
 
     /*******************************************************************************************************************
      * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
@@ -95,9 +98,13 @@ public class Bridge extends Location {
         currChar.getCharStats().setAllStats(20,5,3,2);
     }
  @Override
-    protected void Fight(Character m, Character e, String str) {
+    protected void Fight(Character m, Character e, String str,int movepool) {
         boolean roundOver = false;
         boolean gameOver = false;
+        //Move Choice 0 = troll attacks back
+        //Move Choice 1 =
+        // Move Choice 2 =
+        int movechoice = movepool;
      if (str.equals("START")) {
             fighting = true;
         }
@@ -123,12 +130,33 @@ public class Bridge extends Location {
                     }
                 }
                 if (e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
-                    if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
-                        System.out.println("You Realize wait this troll is kinda weak, the trolls attack does nothing ");
-                    } else {
-                        m.getCharStats().damageCalculations(e.getCharStats().getStr() - m.getCharStats().getDef());
-                        System.out.println("Enemy Deals " + (e.getCharStats().getStr() - m.getCharStats().getDef()) + " Damage \n Your Hp is:" + m.getCharStats().getHP());
+                    if(movechoice == 0) {
+                        if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
+                            System.out.println("You Realize wait this troll is kinda weak, the trolls attack does nothing ");
+                        } else {
+                            m.getCharStats().damageCalculations(e.getCharStats().getStr() - m.getCharStats().getDef());
+                            System.out.println("Enemy Deals " + (e.getCharStats().getStr() - m.getCharStats().getDef()) + " Damage \n Your Hp is:" + m.getCharStats().getHP());
+                        }
                     }
+                    if(movechoice == 1){
+                        if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
+                            e.getCharStats().changeDef(-1);
+                            e.getCharStats().changeStr(1);
+                            System.out.println("The Troll Went Berserk Plus 1 attack minus 1 defense");
+                        }
+                    }
+
+                    if(movechoice == 2){
+                        if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
+                            System.out.println("Even the Trolls Special move could not hurt you");
+                        } else {
+                            m.getCharStats().damageCalculations(e.getCharStats().getStr() + e.getCharStats().getDef() - m.getCharStats().getDef());
+                            System.out.println("Enemy Unleashes Their Special Move Spiked Shield Bash and Deals " + (e.getCharStats().getStr() + e.getCharStats().getDef() -
+                                    m.getCharStats().getDef()) + " Damage Enemy Hp:" + m.getCharStats().getHP());
+                        }
+                    }
+
+                    movechoice = movepool;
                     roundOver = true;
                 }
             }
@@ -137,12 +165,35 @@ public class Bridge extends Location {
                        m.getCharStats().changeDef(2);
                     }
                     if (e.getCharStats().getHP() > 0 && m.getCharStats().getHP() >0) {
-                        System.out.println("The Troll mocks you calling you a coward for trying to block his attacks");
-                        //Code if you want the Troll to attack while your defending
-                        // m.getCharStats().damageCalculations(e.getCharStats().getStr() - m.getCharStats().getDef());
-                        //System.out.println("Enemy Deals " + (e.getCharStats().getStr() - m.getCharStats().getDef()) + " Damage \n Your Hp is:" + m.getCharStats().getHP());
+                        if(movechoice == 0) {
+                            if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
+                                System.out.println("You Realize wait this troll is kinda weak, the trolls attack does nothing ");
+                            } else {
+                                m.getCharStats().damageCalculations(e.getCharStats().getStr() - m.getCharStats().getDef());
+                                System.out.println("Enemy Deals " + (e.getCharStats().getStr() - m.getCharStats().getDef()) + " Damage \n Your Hp is:" + m.getCharStats().getHP());
+                            }
+                        }
+                        if(movechoice == 1){
+                            if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
+                                e.getCharStats().changeDef(-1);
+                                e.getCharStats().changeStr(1);
+                                System.out.println("The Troll Went Berserk Plus 1 attack minus 1 defense");
+                            }
+                        }
+
+                        if(movechoice == 2){
+                            if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
+                                System.out.println("Even the Trolls Special move could not hurt you");
+                            } else {
+                                m.getCharStats().damageCalculations(e.getCharStats().getStr() + e.getCharStats().getDef() - m.getCharStats().getDef());
+                                System.out.println("Enemy Unleashes Their Special Move Spiked Shield Bash and Deals " + (e.getCharStats().getStr() + e.getCharStats().getDef() -
+                                        m.getCharStats().getDef()) + " Damage Enemy Hp:" + m.getCharStats().getHP());
+                            }
+                        }
                         roundOver = true;
+                        movechoice = movepool;
                     }
+
                 }
             }
         
@@ -153,7 +204,7 @@ public class Bridge extends Location {
     @Override
     protected void setDescription() {
         name = " bridge";
-        flavorText = "You find yourself standing on a bridge.  you "
+        flavorText = "\n You find yourself standing on a bridge.  you "
                 + "see a beautiful autumn scene with orange trees\nand"
                 + " a 50 foot drop to the ravine below.\n" +
                 "You are not alone.";

@@ -46,7 +46,7 @@ public class Padnos extends Location { //TODO: add Neurochem
     }
 
     @Override
-    protected void Fight(Character m, Character e, String str){
+    protected void Fight(Character m, Character e, String str,int movepool){
     //todo: fill in
     }
     
