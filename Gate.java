@@ -27,7 +27,7 @@ public class Gate extends Location {
 
         //talking event for t haas
         mapOfEvents.put("TALK TO T HAAS", new Event("TALK TO T HAAS", "\n You walk up to a man at an ice cream cart." +
-                "\n He smiles at you"));
+                "\n He smiles at you."));
         mapOfEvents.get("TALK TO T HAAS").setNpc(listOfCharacters.get("TALK TO T HAAS"));
         mapOfEvents.get("TALK TO T HAAS").setName("TALK TO T HAAS");
         //mapOfEvents.get("TALK TO T HAAS").setFlavorText(listOfCharacters.get("TALK TO T HAAS").);

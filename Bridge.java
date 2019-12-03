@@ -43,7 +43,7 @@ public class Bridge extends Location {
         mapOfEvents.get("GO TO GATE").setLocation("GATE");
         mapOfEvents.put("CHECK UNDER BRIDGE", new Event(
                 "CHECK UNDER BRIDGE", "\n There is " +
-                "something in the shadows; it is looking for a fight"));
+                "something in the shadows; it is looking for a fight. A troll!"));
         mapOfEvents.put("FIGHT TROLL", new Event("FIGHT TROLL",
                 "From under the bridge crawls a troll. He looks like" +
                         " he spends a lot of time online."));
@@ -52,6 +52,8 @@ public class Bridge extends Location {
         mapOfEvents.put("ATTACK", new Event("ATTACK",""));
         mapOfEvents.get("ATTACK").setNpc(listOfCharacters.get("FIGHT TROLL"));
         mapOfEvents.put("DEFEND",new Event("DEFEND", ""));
+        mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter Padnos"));
+        mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
     }
 
     /*******************************************************************************************************************
@@ -207,6 +209,6 @@ public class Bridge extends Location {
         flavorText = "\n You find yourself standing on a bridge.  you "
                 + "see a beautiful autumn scene with orange trees\nand"
                 + " a 50 foot drop to the ravine below.\n" +
-                "You are not alone.";
+                "You are not alone. Try checking underneath the bridge...";
     }
 }

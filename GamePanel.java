@@ -148,7 +148,7 @@ public class GamePanel extends JPanel {
     }
 
     /**
-    * helper method for constructory
+    * helper method for constructor
     * creates all locations for the game
     */
     private void createLocations() {
@@ -156,10 +156,11 @@ public class GamePanel extends JPanel {
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
         listAllLocations.put("MACKINAC", new Mackinac());
+        listAllLocations.put("PADNOS", new Padnos());
         //sets default location to GATE
         currLocation = listAllLocations.get("GATE");
         //added for flavor text helper in GUI
-        dicFlavorText.put("map", "\nBridge--------Gate\n|\n|\n|\nMackinac");
+        dicFlavorText.put("map", "\nBridge--------Gate\n|\n|\n|\nPadnos\n|\n|\n|\nHenry Hall");
     }
 
     /**
@@ -262,7 +263,7 @@ public class GamePanel extends JPanel {
             //from fight
             if (!currEvent.getName().contains("FIGHT"))
                 //theGoodFight = false;
-            //favortext update for game
+            //flavortext update for game
             ta.append(currEvent.getFlavorText());
             ta.setCaretPosition(ta.getDocument().getLength());
             tf.setText(null);
@@ -420,7 +421,7 @@ public class GamePanel extends JPanel {
             }
         }
         // This is the Level up section if the troll is killed the player will level up
-        if(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP()<=0 && alreadyLvl == false){
+        if(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP()<=0 && !alreadyLvl){
             //Player level up
             player.getCharStats().resetHp(defaultHp);
             Random levelup = new Random();
@@ -479,7 +480,7 @@ public class GamePanel extends JPanel {
                 } else ta.append("\nYou're not talking to anyone.");
                 ta.append(dicFlavorText.get(""));
             }
-            if (fightChoices == event.getSource() && currLocation.name == "BRIDGE") {
+            if (fightChoices == event.getSource() && currLocation.name.equals("BRIDGE")) {
                 ta.append(dicFlavorText.get(""));
                 ta.append("You can fight" + "Gargafart the Troll");
                 ta.append("You Have access to the following commands while in a fight" +
