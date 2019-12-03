@@ -7,7 +7,7 @@ import java.util.Random;
  * @author Olivia Vitali
  * @author Cameron Shearer
  * @version 2
- */
+ **********************************************************************************************************************/
 public class Bridge extends Location {
     /** indicates if the player is in a fight */
     public boolean fighting;

@@ -40,24 +40,27 @@ public class Padnos extends Location { //TODO: add Neurochem
 
     @Override
     protected void createMap() {
-        listOfTraversable = new String[1];
+        listOfTraversable = new String[2];
         listOfTraversable[0] = "BRIDGE";
+        listOfTraversable[1] = "HENRY HALL";
         //todo: add locations (henry hall, clocktower) if we ever create them
     }
 
     @Override
     protected void Fight(Character m, Character e, String str,int movepool){
-    //todo: fill in
+        System.out.print("There is nobody you can fight here.");
     }
     
     @Override
     protected String getMap() {
-        String temp = "";
-        for (int i = 0; i < listOfTraversable.length; i++){
-            if (listOfTraversable[i] != null)
-                temp += listOfTraversable[i];
-        }
-        return temp;
+//        String temp = "";
+//        for (int i = 0; i < listOfTraversable.length; i++){
+//            if (listOfTraversable[i] != null)
+//                temp += listOfTraversable[i];
+//        }
+//        return temp;
+
+        return listOfTraversable.toString(); //todo: which way works? bridge above, or this?
     }
 
     protected Event getEvent(String userCommand) {
@@ -68,9 +71,14 @@ public class Padnos extends Location { //TODO: add Neurochem
     @Override
     protected void createCharList() {
         listOfCharacters = new HashMap<String, Character>();
-        listOfCharacters.put("TALK NEUROCHEM", new Character());
-        Character currChar = listOfCharacters.get("TALK NEUROCHEM");
+        listOfCharacters.put("NEUROCHEM", new Character());
+        Character currChar = listOfCharacters.get("NEUROCHEM");
         currChar.setCharName("Neurochem");
+        currChar.setSpeechOptions("TALK NEUROCHEM", "Hello, I teach brain chemistry and do cancer research." +
+                " You can sit in on one of my lectures if you like.");
+
+        listOfCharacters.put("PLAYER", new Character());
+        currChar.getCharStats().setAllStats(20, 5, 3, 2);
     } //todo: did I do this right?
 
 }
