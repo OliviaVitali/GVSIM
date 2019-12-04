@@ -1,9 +1,20 @@
 import java.util.HashMap;
 import javax.swing.*;
 
+/***********************************************************************************************************************
+ * Gate is a traversable location in the game.  The player's string command is passed in and is the most often
+ *  referenced when deciding output. This structure is technically known as Transformational Link.
+ *  @author Olivia Vitali
+ *  @author Cameron Shearer
+ *  @version 1
+ **********************************************************************************************************************/
 public class Gate extends Location {
     ImageIcon icon = new ImageIcon(getClass().getResource("TransformationLink15.png"));
 
+    /*******************************************************************************************************************
+     * Constructor for class.  Creates characters, sets area picture, description for gate, map of possible places to go
+     * to, and events related to the flavor text.
+     ******************************************************************************************************************/
     public Gate() {
         setDescription();
         setImage();
@@ -12,6 +23,11 @@ public class Gate extends Location {
         createEventList();
     }
 
+    /*******************************************************************************************************************
+     * Helper method to create list of events.  An event is triggered by the string (user input) and will return a
+     * string intended to be displayed on the GUI along with other information in the event like the NPC or the
+     * secondary location the user is traveling to
+     ******************************************************************************************************************/
     @Override
     protected void createEventList() {
         //string is user command, event is the event to return
@@ -37,21 +53,43 @@ public class Gate extends Location {
         //mapOfEvents.get("TALK TO T HAAS").setFlavorText(listOfCharacters.get("TALK TO T HAAS").);
     }
 
+    /*******************************************************************************************************************
+     * getter method to return event based on user input
+     * @param userCommand the string input by the user to trigger an event
+     * @return the event associated with the given user command
+     ******************************************************************************************************************/
     protected Event getEvent(String userCommand) {
         return mapOfEvents.get(userCommand);
     }
 
+    /*******************************************************************************************************************
+     * helper method for debugging.  Lists possible locations the user can travel to.  Note: this doesn't correspond to
+     * an event creation.  Actual travel events are created in createEvents
+     ******************************************************************************************************************/
     @Override
     protected void createMap() {
         listOfTraversable = new String[1];
         listOfTraversable[0] = "BRIDGE";
 
     }
-    @Override
-    protected void Fight(Character m, Character e, String str,int movepool){
 
+    /*******************************************************************************************************************
+     * Has to be present due to inheritance. Not used in this context.
+     * @param m initiating character
+     * @param e accepting character
+     * @param str action being performed by character
+     * @param movepool possible moves in this fight
+     * @return 0 for testing purposes.
+     ******************************************************************************************************************/
+    @Override
+    protected int Fight(Character m, Character e, String str,int movepool){
+        return 0;
     }
-    
+
+    /*******************************************************************************************************************
+     * Uses a loop to compile all locations user can access from this area into a string.
+     * @return list of traversable locations
+     ******************************************************************************************************************/
     @Override
     protected String getMap() {
         String temp = "";
@@ -62,11 +100,13 @@ public class Gate extends Location {
         return temp;
     }
 
+    /*******************************************************************************************************************
+     * Creates the list of characters for this area.
+     ******************************************************************************************************************/
     @Override
     protected void createCharList() {
         listOfCharacters = new HashMap<String, Character>();
         listOfCharacters.put("TALK TO T HAAS", new Character());
-        //Character currChar = listOfCharacters.get("TALK TO T HAAS");
         listOfCharacters.get("TALK TO T HAAS").setCharName("T Haas");
         listOfCharacters.get("TALK TO T HAAS").setSpeechOptions(
                 "HELLO", "world");
@@ -82,14 +122,24 @@ public class Gate extends Location {
         listOfCharacters.get("TALK TO T HAAS").setCharStats(new Stats(10, 10, 10, 40));
     }
 
+    /*******************************************************************************************************************
+     * Sets the flavortext description for this area when user LOOKs.
+     ******************************************************************************************************************/
     @Override
     protected void setDescription() {
         name = "GATE";
         flavorText = "You look around and find yourself at the beginning again.";
     }
 
+    /*******************************************************************************************************************
+     * Sets the image on the panel to the one for this area.
+     ******************************************************************************************************************/
     protected void setImage(){
         image = icon;
     }
+
+    /*******************************************************************************************************************
+     * Getter for name of this area
+     ******************************************************************************************************************/
     public String getName() {return name;}
 }

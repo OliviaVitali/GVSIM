@@ -44,7 +44,7 @@ public abstract class Location {
     protected abstract String getMap();
 
     /** method to handle fighting */
-    protected abstract void Fight(Character m,Character e,String str,int movepool);
+    protected abstract int Fight(Character m,Character e,String str,int movepool);
 
     /** helper for constructor  to make characters (excluding player)*/
     protected abstract void createCharList();

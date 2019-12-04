@@ -23,8 +23,6 @@ public class Bridge extends Location {
     /** restrictions so troll cant use special move twice */
     int restrictions;
 
-    /**Whether troll is dead */
-
     /*******************************************************************************************************************
      * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
      * events related to the flavor text.
@@ -42,37 +40,26 @@ public class Bridge extends Location {
         gameOver = false;
     }
 
-    /** For after the troll is defeated, always call with gameOver = true */
-    public Bridge(boolean gameOver){
-        setDescription();
-        createCharList();
-        createEventList();
-        createMap();
-        //by default, the player is not in a fight
-        fighting = false;
-
-        //by default, the troll is undefeated
-        gameOver = true;
-    }
-
 
     /*******************************************************************************************************************
      * Helper method to create list of events.  An event is triggered by the string (user input) and will return a
      * string intended to be displayed on the GUI along with other information in the event like the NPC or the
      * secondary location the user is traveling to
-     ********************************************************************************************************************/
+     ******************************************************************************************************************/
  @Override
     protected void createEventList() {
         mapOfEvents = new HashMap<String, Event>();
+        //gate travel
         mapOfEvents.put("GO TO GATE", new Event("GO TO GATE",
                 "\nYou walk towards the Transformation Link"));
         mapOfEvents.get("GO TO GATE").setLocation("GATE");
-       // mapOfEvents.put("BRIDGE2 TRAVEL", );
-        if(!gameOver) {
+
+        if(!gameOver) { //for when method is called while troll is alive
             mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
             mapOfEvents.put("CHECK UNDER BRIDGE", new Event(
                     "CHECK UNDER BRIDGE", "\n There is " +
                     "something in the shadows; it is looking for a fight. A troll!"));
+            //fighting events
             mapOfEvents.put("FIGHT TROLL", new Event("FIGHT TROLL",
                     "From under the bridge crawls a troll. He looks like" +
                             " he spends a lot of time online."));
@@ -80,10 +67,12 @@ public class Bridge extends Location {
             mapOfEvents.put("ATTACK", new Event("ATTACK", ""));
             mapOfEvents.get("ATTACK").setNpc(listOfCharacters.get("FIGHT TROLL"));
             mapOfEvents.put("DEFEND", new Event("DEFEND", ""));
+            //blocks you from advancing to padnos
             mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You try to cross the bridge, but " +
                     "the troll blocks your path!"));
-        }else{
+        }else{ //for when method is called again after troll dies
             mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
+            //allows travel to padnos
             mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter " +
                     "Padnos")); //todo: fix look
             mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
@@ -99,7 +88,17 @@ public class Bridge extends Location {
     }
 
     /*******************************************************************************************************************
+     * Used to create a new characterList where player is only character.
+     ******************************************************************************************************************/
+    private void editCharList(){
+        listOfCharacters = null;
+        createCharList();
+    }
+
+    /*******************************************************************************************************************
      * getter method to return event based on user input
+     * @param userCommand the string input by the user to trigger an event
+     * @return the event associated with the given user command
      ******************************************************************************************************************/
  @Override
     protected Event getEvent(String userCommand) {
@@ -113,43 +112,68 @@ public class Bridge extends Location {
      ******************************************************************************************************************/
     @Override
     protected void createMap() {
-        listOfTraversable = new String[1];
+        listOfTraversable = new String[2];
         listOfTraversable[0] = "GATE";
+        listOfTraversable[1] = "PADNOS";
     }
 
     /*******************************************************************************************************************
-     *
+     * Uses a loop to compile all locations user can access from this area into a string.
      * @return list of traversable locations
-     ******************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected String getMap() {
-        return listOfTraversable.toString();//should this be toString? I had a problem with return types. -Sarah
+        String temp = "";
+        for (int i = 0; i < listOfTraversable.length; i++){
+            if (listOfTraversable[i] != null)
+                temp += listOfTraversable[i];
+        }
+        return temp;
+        //return listOfTraversable.toString();
     }
 
+    /*******************************************************************************************************************
+     * Creates the list of characters for this area. Changes when troll is dead.
+     ******************************************************************************************************************/
     @Override
     protected void createCharList() {
     listOfCharacters = new HashMap<String, Character>();
     Character currChar;
-    if(!gameOver) {
-        listOfCharacters.put("TROLL", new Character());
-        currChar = listOfCharacters.get("TROLL");
-        currChar.setCharName("Gargafart the troll");
-        currChar.setSpeechOptions("FIGHT", "I'm a troll and I want to fight you!");
-        ;
-        currChar.getCharStats().setAllStats(5, 7, 1, 2);
+        if(!gameOver) {
+            //troll
+            listOfCharacters.put("TROLL", new Character());
+            currChar = listOfCharacters.get("TROLL");
+            currChar.setCharName("Gargafart the troll");
+            currChar.setSpeechOptions("FIGHT", "I'm a troll and I want to fight you!");
+            currChar.getCharStats().setAllStats(5, 7, 1, 2);
+
+            //player
+            listOfCharacters.put("PLAYER", new Character());
+            currChar = listOfCharacters.get("PLAYER");
+            currChar.getCharStats().setAllStats(20,5,3,2);
+        }else{
+            //player after level up
+            listOfCharacters.put("PLAYER", new Character());
+            currChar = listOfCharacters.get("PLAYER");
+            currChar.getCharStats().setAllStats(21,8,4,3);
+        }
     }
 
-        listOfCharacters.put("PLAYER", new Character());
-        currChar = listOfCharacters.get("PLAYER");
-        currChar.getCharStats().setAllStats(20,5,3,2);
-    }
- @Override
-    protected void Fight(Character m, Character e, String str, int movepool) {
+    /*******************************************************************************************************************
+     * This method handles the fighting in this location.
+     * @param m Player
+     * @param e Troll
+     * @param str Start, attack, or defend
+     * @param movepool the number of different actions allowed during the fight
+     * @return A number, for testing purposes
+     ******************************************************************************************************************/
+    @Override
+    protected int Fight(Character m, Character e, String str, int movepool) {
         boolean roundOver = false;
         gameOver = false;
         //Move Choice 0 = troll attacks back
         //Move Choice 1 =
-        // Move Choice 2 =
+        //Move Choice 2 =
         int movechoice = movepool;
      if (str.equals("START")) {
             fighting = true;
@@ -165,7 +189,7 @@ public class Bridge extends Location {
                 System.out.println("You Lose");
                 gameOver = true;
             }
-            if (str == "ATTACK") {
+            if (str.equals("ATTACK")) {
                 System.out.println("Is this working.jpg");
                 if (e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
                     if (e.getCharStats().getDef() > m.getCharStats().getStr()) {
@@ -206,7 +230,7 @@ public class Bridge extends Location {
                     roundOver = true;
                 }
             }
-                if(str == "DEFEND"){
+                if(str.equals("DEFEND")){
                     if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
                        m.getCharStats().changeDef(2);
                     }
@@ -239,31 +263,40 @@ public class Bridge extends Location {
                         roundOver = true;
                         movechoice = movepool;
                     }
-
                 }
             }
-
         if(gameOver) {
             System.out.println("The Fight is over");
+            //after troll is defeated, area changes
+            setDescription(); //changes area description
+            editCharList(); //makes player only character present
             editEventList(); //makes it so that player can go to padnos
-            setDescription();
         }
+        return 1; //for testing
     }
+
+    /*******************************************************************************************************************
+     * Sets the flavortext description for this area when user LOOKs. Changes it depending on whether troll is dead.
+     ******************************************************************************************************************/
     @Override
     protected void setDescription() {
         name = " bridge";
-        if(!gameOver) {
+        if(!gameOver) { //troll alive
             flavorText = "\n You find yourself standing on a bridge.  you "
                     + "see a beautiful autumn scene with orange trees\nand"
                     + " a 50 foot drop to the ravine below.\n" +
                     "You are not alone. Try checking underneath the bridge...";
-        } else {
-            flavorText = "You breathe a sigh of relief and relax from the fight. What next?";
+        } else { //troll dead
+            flavorText = "\nYou breathe a sigh of relief and relax from the fight. What next?";
         }
     }
 
+    /*******************************************************************************************************************
+     * Sets the picture displayed for this area.
+     ******************************************************************************************************************/
     protected void setImage(){
         image = icon;
     }
-
 }
+
+//end Bridge class

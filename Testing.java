@@ -20,6 +20,7 @@ public class Testing {
     //proper description. NOTE: DO NOT change line formatting of flavortext or assertEquals will fail!
     @Test
     public void LocationTest(){
+        /**Gate location */
         Gate g = new Gate();
         //look event
         assertNotNull(g.getEvent("LOOK"));
@@ -44,9 +45,43 @@ public class Testing {
         //map item
         assertEquals(g.getMap(), "BRIDGE");
 
+        //test name of location
         assertEquals(g.getName(), "GATE");
 
-        //todo: test fight?
+        //test fight
+        assertEquals(g.Fight(new Character(), new Character(), "!", 1), 0);
+
+
+        /** Bridge location */ //todo: test troll death
+        Bridge b = new Bridge();
+        //look event
+        assertNotNull(b.getEvent("LOOK"));
+        assertEquals(b.getEvent("LOOK").getFlavorText(), "\nIt's Saturday and you've been wandering " +
+                "around campus because...let's face it, you " +
+                "didn't really have anything else to do.\n" +
+                "By mistake, you've wandered under a large " +
+                "blue sculpture only to remember that you" +
+                " weren't supposed to walk under that.\nThe" +
+                " world shimmers and you see T Haas ahead, " +
+                "handing out ice cream.  Behind you is a bridge.");
+        //go to gate event
+        assertEquals("\nYou walk towards the bridge", b.getEvent("GO TO GATE").getFlavorText());
+        assertNotNull(g.getEvent("GO TO GATE"));
+
+        //go to padnos event
+
+
+        //map item
+        assertEquals(g.getMap(), "GATE");
+
+        //test name of location
+        assertEquals(g.getName(), "GATE");
+
+        //test fight
+        assertEquals(g.Fight(new Character(), new Character(), "!", 1), 0);
+
+
+
     }
 
 }

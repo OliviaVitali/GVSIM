@@ -166,13 +166,11 @@ public class GamePanel extends JPanel {
         listAllLocations = new HashMap<String, Location>();
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
-        //listAllLocations.put("BRIDGE2", new Bridge(true));
-        listAllLocations.put("MACKINAC", new Mackinac());
         listAllLocations.put("PADNOS", new Padnos());
         //sets default location to GATE
         currLocation = listAllLocations.get("GATE");
         //added for flavor text helper in GUI
-        dicFlavorText.put("map", "\nBridge--------Gate\n|\n|\n|\nPadnos\n|\n|\n|\nHenry Hall");
+        dicFlavorText.put("map", "\nBridge--------Gate\n|\n|\n|\nPadnos");
     }
 
     /**

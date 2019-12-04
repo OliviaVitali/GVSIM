@@ -3,17 +3,22 @@ import java.awt.*;
 
 public class GUI {
 
-    /**
+    /*******************************************************************************************************************
     * main function for game
     * creates GUI for the game
-    */
+     * @author Riley Hernandez
+     * @author Sarah Arnott
+    *******************************************************************************************************************/
     public static void main(String[] args){
         /** frame that hold the game */
         JFrame frame = new JFrame("GV Simulator");
         //sets defaults for frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.setBackground(Color.PINK);
+        //makes frame fullscreen upon launch
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(false);
+        frame.setVisible(true);
+        //frame.setBackground(Color.PINK);
 
         /** panel is the game itself */
         GamePanel panel = new GamePanel();

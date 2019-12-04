@@ -1,10 +1,22 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
+/***********************************************************************************************************************
+ * Padnos is a traversable location in the game.  The player's string command is passed in and is the most often
+ * referenced when deciding output.
+ *
+ * @author Sarah Arnott
+ * @version 2
+ **********************************************************************************************************************/
 public class Padnos extends Location {
 
     /** indicates if the player is in a fight */
     public boolean fighting;
 
+    /*******************************************************************************************************************
+     * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
+     * events related to the flavor text.
+     ******************************************************************************************************************/
     public Padnos(){
         setDescription();
         createCharList();
@@ -14,6 +26,9 @@ public class Padnos extends Location {
         fighting = false; //player is not in a fight by default
     }
 
+    /*******************************************************************************************************************
+     * Sets the flavortext description for this area when user LOOKs.
+     ******************************************************************************************************************/
     @Override
     protected void setDescription() {
         name = "Padnos";
@@ -21,6 +36,11 @@ public class Padnos extends Location {
                 " building.";
     }
 
+    /*******************************************************************************************************************
+     * Helper method to create list of events.  An event is triggered by the string (user input) and will return a
+     * string intended to be displayed on the GUI along with other information in the event like the NPC or the
+     * secondary location the user is traveling to
+     ******************************************************************************************************************/
     @Override
     protected void createEventList() {
         mapOfEvents = new HashMap<String, Event>(); //string is user command, event is the event to return
@@ -46,43 +66,75 @@ public class Padnos extends Location {
         mapOfEvents.get("GO TO BRIDGE").setLocation("BRIDGE");
     }
 
+    /*******************************************************************************************************************
+     * helper method for debugging.  Lists possible locations the user can travel to.  Note: this doesn't correspond to
+     * an event creation.  Actual travel events are created in createEvents
+     ******************************************************************************************************************/
     @Override
     protected void createMap() {
-        listOfTraversable = new String[2];
+        listOfTraversable = new String[1];
         listOfTraversable[0] = "BRIDGE";
-        listOfTraversable[1] = "HENRY HALL";
-        //todo: add locations (henry hall, clocktower) if we ever create them
     }
 
+    /*******************************************************************************************************************
+     * Has to be present due to inheritance. Not used in this context.
+     * @param m initiating character
+     * @param e accepting character
+     * @param str action being performed by character
+     * @param movepool possible moves in this fight
+     * @return 2 for testing purposes.
+     ******************************************************************************************************************/
     @Override
-    protected void Fight(Character m, Character e, String str,int movepool){
-        System.out.print("There is nobody you can fight here.");
+    protected int Fight(Character m, Character e, String str,int movepool){
+        return 2;
     }
-    
+
+    /*******************************************************************************************************************
+     * Uses a loop to compile all locations user can access from this area into a string.
+     * @return list of traversable locations
+     ******************************************************************************************************************/
     @Override
     protected String getMap() {
-        return listOfTraversable.toString(); //todo: which way works? bridge above, or this?
+        String temp = "";
+        for (int i = 0; i < listOfTraversable.length; i++){
+            if (listOfTraversable[i] != null)
+                temp += listOfTraversable[i];
+        }
+        return temp;
     }
 
+    /*******************************************************************************************************************
+     * getter method to return event based on user input
+     * @param userCommand the string input by the user to trigger an event
+     * @return the event associated with the given user command
+     ******************************************************************************************************************/
     protected Event getEvent(String userCommand) {
-       // System.out.println(mapOfEvents.get(userCommand));
         return mapOfEvents.get(userCommand);
     }
 
+    /*******************************************************************************************************************
+     * Creates the list of characters for this area.
+     ******************************************************************************************************************/
     @Override
     protected void createCharList() {
         listOfCharacters = new HashMap<String, Character>();
         listOfCharacters.put("TALK TO NEUROCHEM", new Character());
-        //Character currChar = listOfCharacters.get("NEUROCHEM");
+        //Neurochem
         listOfCharacters.get("TALK TO NEUROCHEM").setCharName("Neurochem");
-        listOfCharacters.get("TALK TO NEUROCHEM").setSpeechOptions("HELLO", "Hello, I teach brain chemistry and do cancer research." +
-                " You can sit in on one of my lectures if you like.");
+        listOfCharacters.get("TALK TO NEUROCHEM").setSpeechOptions("HELLO", "Hello, I teach brain chemistry" +
+                " and do cancer research. You can sit in on one of my lectures if you like.");
         listOfCharacters.get("TALK TO NEUROCHEM").setSpeechOptions("GOODBYE", "See you around.");
         listOfCharacters.get("TALK TO NEUROCHEM").setCharStats(new Stats(10, 10, 10, 10));
+        //player
         listOfCharacters.put("PLAYER", new Character());
         Character currChar = listOfCharacters.get("PLAYER");
         currChar.getCharStats().setAllStats(20, 5, 3, 2);
-    } //todo: did I do this right?
+    }
+
+    /*******************************************************************************************************************
+     * Getter for name of this area
+     ******************************************************************************************************************/
+    public String getName() {return name;}
 
 }
 
