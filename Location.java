@@ -1,7 +1,3 @@
-/**
- * @author Olivia Vitali
- */
-
 import javax.swing.*;
 import java.util.Map;
 
@@ -9,6 +5,7 @@ import java.util.Map;
 /***********************************************************************************************************************
  * generic Location class with required variables and helper methods
  * All instantiated locations must extend Location
+ * @author Olivia Vitali
  **********************************************************************************************************************/
 public abstract class Location {
     //contains all characters in location, relates user command

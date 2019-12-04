@@ -1,9 +1,9 @@
-/**********************************************************************
+/***********************************************************************************************************************
  * Inventory Item that contains name, description, and relevant stat
  * changes (will update later)
  * @author Olivia Vitali
  * @version 1
- */
+ **********************************************************************************************************************/
 public class InventoryItem {
 
     /** name of the item */
@@ -11,10 +11,10 @@ public class InventoryItem {
     /** flavortext for the item */
     private String description;
 
-    /**
+    /*******************************************************************************************************************
      * Generic constructor.  All items in game are Scrunchies until
      * reskinned
-     */
+     ******************************************************************************************************************/
     public InventoryItem(){
         /** name of inventory item*/
         name = "Scrunchie";
@@ -22,13 +22,15 @@ public class InventoryItem {
         description = "A hair tie for your hair";
     }
 
-    /**
+    /*******************************************************************************************************************
      * Constructor that takes inputs
      * @param name object's name
      * @param description flavortext
-     */
+     ******************************************************************************************************************/
     public InventoryItem(String name, String description){
         this.name = name;
         this.description = description;
     }
 }
+
+//end InventoryItem class

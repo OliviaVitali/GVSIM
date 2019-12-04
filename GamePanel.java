@@ -4,15 +4,15 @@ import java.util.Map;
 import javax.swing.*;
 import java.util.Random;
 
-/************************************************************************************************
+/***********************************************************************************************************************
 * this is the game.  It holds all the objects, players, locations and navigation through the game
 * @author Olivia Vitali, Fight by Cameron Shearer
 * @version 4
-*/
+***********************************************************************************************************************/
 public class GamePanel extends JPanel {
-    /**
+    /*******************************************************************************************************************
      * Default image for the GUI
-     */
+     *******************************************************************************************************************/
     ImageIcon icon = new ImageIcon(getClass().getResource("TransformationLink15.png"));
     /**
      * menu for GUI
@@ -24,92 +24,70 @@ public class GamePanel extends JPanel {
     public JPanel panel;
     JLabel label, lbl;
 
-    /**
-     * user puts commands in this line
-     */
+    /** user puts commands in this line */
     JTextField tf;
-    /**
-     * sends text in user command line to panel
-     */
+
+    /** sends text in user command line to panel */
     JButton send;
-    /**
-     * button to reset text in input line in GUI
-     */
+
+    /** button to reset text in input line in GUI */
     JButton reset;
-    /**
-     * text displayed on GUI
-     */
+
+    /** text displayed on GUI */
     JTextArea ta;
-    /**
-     * makes the text area scrollable
-     */
+
+    /** makes the text area scrollable */
     JScrollPane scroll;
-    /**
-     * listens to mouse clicks for GUI and relays them to panel
-     */
+
+    /** listens to mouse clicks for GUI and relays them to panel */
     ActionListener listener;
-    /**
-     * pointer to player's current location
-     */
+
+    /** pointer to player's current location */
     static Location currLocation;
-    /**
-     * All locations are stored in a map
-     */
+
+    /** All locations are stored in a map */
     Map<String, Location> listAllLocations;
-    /**
-     * Boolean that make sure user initiated a fight
-     **/
+    /** Boolean that make sure user initiated a fight */
     boolean theGoodFight;
 
-    /**
-     * Boolean to make sure level up works
-     **/
+    /** Boolean to make sure level up works */
     boolean alreadyLvl;
-    /**
-     * Connects text box title to text box for more readable coding
-     */
+
+    /** Connects text box title to text box for more readable coding */
     Map<String, String> dicFlavorText;
-    /**
-     * determines if we're in a conversation loop
-     */
+
+    /** determines if in a conversation loop */
     private boolean isConvo;
-    /**
-     * player character
-     */
+
+    /** player character */
     Character player;
-    /**
-     * the npc currently interacted with
-     */
+    /** the npc currently interacted with */
     Character currChar;
-    /**
-     * current event being referenced
-     */
+    /** current event being referenced */
     Event currEvent;
 
-    /**
-     * The current default hp which is needed to reset after a fight
-     */
+    /** The current default hp which is needed to reset after a fight */
     int defaultHp = 20;
 
-
-    /**
-     * Random number to restrict move pool
-     */
+    /** Random number to restrict move pool and related ints*/
     Random res = new Random();
     int bound = 2;
     int restrictions = res.nextInt(2);
 
-    /**
+    /*******************************************************************************************************************
     * Constructor for GamePanel
     * Instantiates most objects referenced in game
-    */
+    *******************************************************************************************************************/
     public GamePanel() {
-        /** connect GUI to panel */
+        //connect GUI to panel
         listener = new listener();
-        /** Text Area at the Center */
+
+        //Text Area at the Center
         ta = new JTextArea(5, 5);
+
         //helper to create some flavor text
         createdicFlavorText();
+
         //sets current text to Intro on GUI
         ta.setText(dicFlavorText.get("intro"));
         scroll = new JScrollPane(ta);
@@ -126,25 +104,27 @@ public class GamePanel extends JPanel {
         player.setIsPlayer(true);
         player.setCharName("ORCS");
         player.getCharStats().setAllStats(20,5,3,2);
-        //by default, current character is set to Jenny.
-        //if you reach Jenny, you've messed up
+        //by default, current character is set to Jenny. If you reach Jenny, you've messed up.
         currChar = new Character();
     }
 
-    /** Getter for currLocation */
+    /*******************************************************************************************************************
+     *  Getter for currLocation
+     ******************************************************************************************************************/
     public Location getCurrLocation(){
         return currLocation;
     }
 
-    /**Setter for currLocation, used in bridge class */
+    /*******************************************************************************************************************
+     * Setter for currLocation, used in bridge class
+     ******************************************************************************************************************/
     public static void setCurrLocation(Location x){
         currLocation = x;
-
     }
 
-    /**
+    /*******************************************************************************************************************
     * helper method to create flavortext for game not used elsewhere
-    */
+    ******************************************************************************************************************/
     private void createdicFlavorText() {
       /** map of abbreviation and text for GUI*/
         dicFlavorText = new HashMap<>();
@@ -158,10 +138,10 @@ public class GamePanel extends JPanel {
         dicFlavorText.put("TALK", "\n You are talking to ");
     }
 
-    /**
+    /*******************************************************************************************************************
     * helper method for constructor
     * creates all locations for the game
-    */
+    *******************************************************************************************************************/
     private void createLocations() {
         listAllLocations = new HashMap<String, Location>();
         listAllLocations.put("GATE", new Gate());
@@ -173,10 +153,10 @@ public class GamePanel extends JPanel {
         dicFlavorText.put("map", "\nBridge--------Gate\n|\n|\n|\nPadnos");
     }
 
-    /**
+    /*******************************************************************************************************************
     * helper method for constructor
     * adds panel information for GUI
-    */
+    *******************************************************************************************************************/
     private void setPanel() {
         panel = new JPanel();
         label = new JLabel("Enter Text");
@@ -193,10 +173,10 @@ public class GamePanel extends JPanel {
         panel.add(reset);
     }
 
-    /**
+    /*******************************************************************************************************************
     * helper method for constructor
     * sets menu to items for panel
-    */
+    *******************************************************************************************************************/
     private void setMenu() {
         //Creating the MenuBar and adding components
         mb = new JMenuBar();
@@ -220,14 +200,14 @@ public class GamePanel extends JPanel {
         //m1.add(m22);
     }
 
-    /**
+    /*******************************************************************************************************************
     * when in a conversation, user is re-routed here to directly translate
     * user commands and returns character's responses
-    */
+    *******************************************************************************************************************/
     private void conversation(String cmd, Character c) {
         //handles conversation with npc
 
-        //ta.append(dicFlavorText.get("TALK") + c.getCharName());
+        //ta.append(dicFlavorText.get("TALK") + c.getCharName()); todo: remove this(?)
 
         //try catch handles invalid user commands
         try {
@@ -248,14 +228,14 @@ public class GamePanel extends JPanel {
         }
     }
 
-    /******************************************************************
+    /*******************************************************************************************************************
      * Basically updates everything.  Gets related event from user cmd
      * If the player starts a conversation, they must either type "bye"
      * or another valid event name to leave the conversation
      * If the player starts a fight, they must either finish the fight
      * or enter another valid event to leave the fight
      * @param userCommand is the user's intention
-     */
+     ******************************************************************************************************************/
     private void updateEvent(String userCommand) {
         String cmd = userCommand.toUpperCase();
 
@@ -321,13 +301,12 @@ public class GamePanel extends JPanel {
         } catch (NullPointerException e) {
             tf.setText(null);
         }
-
     }
 
-    /******************************************************************
+    /*******************************************************************************************************************
      * Updates game's fighting state
      * @param currEvent is the event related to the fight
-     *****************************************************************/
+     ******************************************************************************************************************/
     private void CameronsFightShenanigans(Event currEvent, String userCommand, Character opp) {
         //Start of Cameron's Fight Shenanigans
         //If the string contains fight it runs and uses print statements to test if working
@@ -351,7 +330,7 @@ public class GamePanel extends JPanel {
                 ta.append("\n You can't fight a dead body -_-");
 
                 //If your already in a fight why are you trying to start another
-            } else if (theGoodFight == true) {
+            } else if (theGoodFight) {
                 System.out.println("6");
                 ta.append("\n You are already in a fight. LOOK ALIVE.");
 
@@ -375,7 +354,7 @@ public class GamePanel extends JPanel {
         }
         //Attack logic
         if (currEvent.getName().equals("ATTACK")) {
-            if (theGoodFight == false) {
+            if (!theGoodFight) {
                 ta.append("\n Maaaayyybbbbeeee you should try and initiate a fight before you go attacking someone");
 
             }
@@ -404,7 +383,7 @@ public class GamePanel extends JPanel {
             }
         }
         if (currEvent.getName().equals("DEFEND")) {
-            if (theGoodFight == false) {
+            if (!theGoodFight) {
                 ta.append("\n What are you even trying to block");
             } else if (currLocation.listOfCharacters.get("TROLL").getCharStats().getHP() <= 0) {
                 alreadyLvl = true;
@@ -413,7 +392,7 @@ public class GamePanel extends JPanel {
                 ta.append("\n Olivia Said your defense cant go that high");
             } else {
                 currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "DEFEND",restrictions);
-                ta.append("\n You raise your shield to the sun, imbued with sunlight your shield receives + 2 Defense ");
+                ta.append("\n You raise your shield to the sun, imbued with sunlight your shield receives + 2 Defense");
                 ta.append("\n Your Defense is now:" + player.getCharStats().getDef());
                 if(restrictions == 0) {
                     ta.append("\n The Troll mocks you calling you a coward for trying to block his attack but " +
@@ -441,23 +420,24 @@ public class GamePanel extends JPanel {
             int deflvl = levelup.nextInt(4);
             int spdlvl = levelup.nextInt(4);
             defaultHp = player.getCharStats().getHP()+hplvl;
-            player.getCharStats().setAllStats(player.getCharStats().getHP()+hplvl,player.getCharStats().getStr() + strlvl,
-                    player.getCharStats().getSpd() +spdlvl,player.getCharStats().getDef() +deflvl);
-            ta.append("\n You Leveled up!!!!!! \n Level" + player.getCharStats().getLevel() + "->" + (player.getCharStats().getLevel() + 1));
+            player.getCharStats().setAllStats(player.getCharStats().getHP()+hplvl,
+                    player.getCharStats().getStr() + strlvl,player.getCharStats().getSpd() +spdlvl,
+                    player.getCharStats().getDef() +deflvl);
+            ta.append("\n You Leveled up!!!!!! \n Level" + player.getCharStats().getLevel() + "->" +
+                    (player.getCharStats().getLevel() + 1));
             player.getCharStats().levelUp(player.getCharStats().getLevel()+1);
             ta.append("\n Increased Stats to: \n Hp = " + player.getCharStats().getHP());
             ta.append("\n Str = " + player.getCharStats().getStr());
             ta.append("\n Def = " + player.getCharStats().getDef());
             ta.append("\n Spd = " + player.getCharStats().getSpd());
         }
-
         //End of Cameron's Fight Shenanigans
     }
 
-    /******************************************************************
+    /*******************************************************************************************************************
      * listener class relates user input to game play
      * This includes buttons and user entered commands (strings)
-     */
+     ******************************************************************************************************************/
     private class listener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             //updates text area with flavortext
@@ -498,10 +478,9 @@ public class GamePanel extends JPanel {
                         "\n Attack: You will hit the Troll for your attack minus his defense (Must Fight Troll First)" +
                         "\n Defend: This will Raise your Defense by 2(Must Fight Troll First)" +
                         "\n Fight Troll: This will antagonize the Troll into a fight(Can only Start once)");
-
                 }
             }
         }
     }
 
-//end GamePanel
+//end GamePanel class

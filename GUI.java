@@ -7,7 +7,7 @@ public class GUI {
     * main function for game
     * creates GUI for the game
      * @author Riley Hernandez
-     * @author Sarah Arnott
+     * @author Sarah Arnott (added fullscreen)
     *******************************************************************************************************************/
     public static void main(String[] args){
         /** frame that hold the game */
@@ -33,3 +33,5 @@ public class GUI {
         frame.setVisible(true);
     }
 }
+
+//end GUI class
