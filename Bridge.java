@@ -59,12 +59,12 @@ public class Bridge extends Location {
  @Override
     protected void createEventList() {
         mapOfEvents = new HashMap<String, Event>();
-        mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
         mapOfEvents.put("GO TO GATE", new Event("GO TO GATE",
                 "\nYou walk towards the Transformation Link"));
         mapOfEvents.get("GO TO GATE").setLocation("GATE");
        // mapOfEvents.put("BRIDGE2 TRAVEL", );
         if(!gameOver) {
+            mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
             mapOfEvents.put("CHECK UNDER BRIDGE", new Event(
                     "CHECK UNDER BRIDGE", "\n There is " +
                     "something in the shadows; it is looking for a fight. A troll!"));
@@ -78,9 +78,10 @@ public class Bridge extends Location {
             mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You try to cross the bridge, but " +
                     "the troll blocks your path!"));
         }else{
-                mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter " +
-                        "Padnos"));
-                mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
+            mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
+            mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter " +
+                    "Padnos")); //todo: fix look
+            mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
         }
     }
 
@@ -240,6 +241,7 @@ public class Bridge extends Location {
         if(gameOver) {
             System.out.println("The Fight is over");
             editEventList(); //makes it so that player can go to padnos
+            setDescription();
         }
     }
     @Override
@@ -250,7 +252,7 @@ public class Bridge extends Location {
                     + "see a beautiful autumn scene with orange trees\nand"
                     + " a 50 foot drop to the ravine below.\n" +
                     "You are not alone. Try checking underneath the bridge...";
-        }else{
+        } else {
             flavorText = "You breathe a sigh of relief and relax from the fight. What next?";
         }
     }

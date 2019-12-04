@@ -132,6 +132,16 @@ public class GamePanel extends JPanel {
         currChar = new Character();
     }
 
+    /** Getter for currLocation */
+    public Location getCurrLocation(){
+        return currLocation;
+    }
+
+    /**Setter for currLocation, used in bridge class */
+    public static void setCurrLocation(Location x){
+        currLocation = x;
+
+    }
 
     /**
     * helper method to create flavortext for game not used elsewhere
