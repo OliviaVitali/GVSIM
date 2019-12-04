@@ -2,7 +2,7 @@ import java.util.HashMap;
 import javax.swing.*;
 
 public class Gate extends Location {
-    ImageIcon icon = new ImageIcon(getClass().getResource("THaas.jpg"));
+    ImageIcon icon = new ImageIcon(getClass().getResource("TransformationLink15.png"));
 
     public Gate() {
         setDescription();
