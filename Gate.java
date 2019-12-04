@@ -1,8 +1,12 @@
 import java.util.HashMap;
+import javax.swing.*;
 
 public class Gate extends Location {
+    ImageIcon icon = new ImageIcon(getClass().getResource("THaas.jpg"));
+
     public Gate() {
         setDescription();
+        setImage();
         createMap();
         createCharList();
         createEventList();
@@ -86,6 +90,10 @@ public class Gate extends Location {
     protected void setDescription() {
         name = "GATE";
         flavorText = "You look around and find yourself at the beginning again.";
+    }
+
+    protected void setImage(){
+        image = icon;
     }
     public String getName() {return name;}
 }

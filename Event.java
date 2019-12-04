@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**********************************************************************
  * lets you change the location, interact with npc's, interact with
  * inventory items, see the flavor text for events like jumping on the
@@ -14,6 +16,8 @@ public class Event {
     protected Character npc;
     /** if the event changes the location, the String is the new location */
     protected String location;
+    /** image that corresponds with the location **/
+    protected ImageIcon image;
 
     /**
     * Default constructor for events
@@ -25,6 +29,7 @@ public class Event {
         inventoryItem = null;
         npc = null;
         location = null;
+        image = null;
     }
 
     /**
