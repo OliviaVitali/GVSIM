@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -10,6 +11,9 @@ import java.util.Random;
  * @version 3
  **********************************************************************************************************************/
 public class Bridge extends Location {
+    /** Icon for the bridge */
+    ImageIcon icon = new ImageIcon(getClass().getResource("LittleMak15(2).jpg"));
+
     /** indicates if the player is in a fight */
     public boolean fighting;
 
@@ -28,6 +32,7 @@ public class Bridge extends Location {
     public Bridge(){
         //order listed below should not be changed
         setDescription();
+        setImage();
         createCharList();
         createEventList();
         createMap();
@@ -256,4 +261,9 @@ public class Bridge extends Location {
             flavorText = "You breathe a sigh of relief and relax from the fight. What next?";
         }
     }
+
+    protected void setImage(){
+        image = icon;
+    }
+
 }

@@ -11,10 +11,9 @@ import java.util.Random;
 */
 public class GamePanel extends JPanel {
     /**
-     * Unused yet.  Has image loaded into GUI
+     * Default image for the GUI
      */
-    ImageIcon icon = new ImageIcon(getClass().getResource("THaas.jpg"));
-    ImageIcon icon2 = new ImageIcon(getClass().getResource("testImage.jpg"));
+    ImageIcon icon = new ImageIcon(getClass().getResource("TransformationLink15.png"));
     /**
      * menu for GUI
      */
@@ -153,7 +152,7 @@ public class GamePanel extends JPanel {
                 "Welcome to GVSimulator! " +
                         "Type LOOK to take a peek at the world around you!");
         dicFlavorText.put("credits", "This game was made by ORCS.");
-        dicFlavorText.put("", "\n-------\n");
+        dicFlavorText.put("", "\n-------");
 
         dicFlavorText.put("GO", "\nYou are at " + currLocation);
         dicFlavorText.put("TALK", "\n You are talking to ");
@@ -183,7 +182,7 @@ public class GamePanel extends JPanel {
     private void setPanel() {
         panel = new JPanel();
         label = new JLabel("Enter Text");
-        lbl = new JLabel("");
+        lbl = new JLabel(icon);
         tf = new JTextField(20); // accepts up to 20 characters
         send = new JButton("Send");
         send.addActionListener(listener);
@@ -319,6 +318,7 @@ public class GamePanel extends JPanel {
             if (currEvent.getLocation() != null) {
                 currLocation = listAllLocations.get(currEvent.getLocation());
                 ta.append(currLocation.flavorText);
+                lbl.setIcon(currLocation.image);
             }
         } catch (NullPointerException e) {
             tf.setText(null);
@@ -464,9 +464,7 @@ public class GamePanel extends JPanel {
         public void actionPerformed(ActionEvent event) {
             //updates text area with flavortext
             if (send == event.getSource()) {
-                updateEvent(tf.getText());
-                lbl.setIcon(icon);
-            }
+                updateEvent(tf.getText());}
             //resets text box for user commands
             if (reset == event.getSource())
                 tf.setText(null);

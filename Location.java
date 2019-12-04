@@ -2,6 +2,7 @@
  * @author Olivia Vitali
  */
 
+import javax.swing.*;
 import java.util.Map;
 
 
@@ -16,6 +17,8 @@ public abstract class Location {
     protected String name;
     /** test that displays when area is loaded */
     protected String flavorText;
+    /** image related to the location */
+    protected ImageIcon image;
     /** list of places you can go from your location  (not including
      * Scooter code
      */
