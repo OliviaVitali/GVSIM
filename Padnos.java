@@ -17,7 +17,7 @@ public class Padnos extends Location {
     @Override
     protected void setDescription() {
         name = "Padnos";
-        flavorText = "You are in the hallway of the physical science" +
+        flavorText = "\nYou are in the hallway of the physical science" +
                 " building.";
     }
 
@@ -61,13 +61,6 @@ public class Padnos extends Location {
     
     @Override
     protected String getMap() {
-//        String temp = "";
-//        for (int i = 0; i < listOfTraversable.length; i++){
-//            if (listOfTraversable[i] != null)
-//                temp += listOfTraversable[i];
-//        }
-//        return temp;
-
         return listOfTraversable.toString(); //todo: which way works? bridge above, or this?
     }
 
