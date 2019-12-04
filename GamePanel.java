@@ -51,7 +51,7 @@ public class GamePanel extends JPanel {
     /**
      * pointer to player's current location
      */
-    Location currLocation;
+    static Location currLocation;
     /**
      * All locations are stored in a map
      */
@@ -131,6 +131,17 @@ public class GamePanel extends JPanel {
         currChar = new Character();
     }
 
+    /** Getter for currLocation */
+    public Location getCurrLocation(){
+        return currLocation;
+    }
+
+    /**Setter for currLocation, used in bridge class */
+    public static void setCurrLocation(Location x){
+        currLocation = x;
+
+    }
+
     /**
     * helper method to create flavortext for game not used elsewhere
     */
@@ -155,6 +166,7 @@ public class GamePanel extends JPanel {
         listAllLocations = new HashMap<String, Location>();
         listAllLocations.put("GATE", new Gate());
         listAllLocations.put("BRIDGE", new Bridge());
+        //listAllLocations.put("BRIDGE2", new Bridge(true));
         listAllLocations.put("MACKINAC", new Mackinac());
         listAllLocations.put("PADNOS", new Padnos());
         //sets default location to GATE

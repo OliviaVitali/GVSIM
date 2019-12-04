@@ -3,16 +3,23 @@ import java.util.Random;
 
 /***********************************************************************************************************************
  * Bridge is a traversable location in the game.  The player's string command is passed in and is the most often
- * referenced when deciding output
+ * referenced when deciding output. There are two versions: with and without troll, since locations are only created 1x.
  * @author Olivia Vitali
  * @author Cameron Shearer
- * @version 2
+ * @author Sarah Arnott
+ * @version 3
  **********************************************************************************************************************/
 public class Bridge extends Location {
     /** indicates if the player is in a fight */
     public boolean fighting;
+
+    /** Public so it can be used in multiple methods */
+    private boolean gameOver;
+
     /** restrictions so troll cant use special move twice */
     int restrictions;
+
+    /**Whether troll is dead */
 
     /*******************************************************************************************************************
      * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
@@ -26,6 +33,21 @@ public class Bridge extends Location {
         createMap();
         //by default, the player is not in a fight
         fighting = false;
+        //by default, the troll is undefeated
+        gameOver = false;
+    }
+
+    /** For after the troll is defeated, always call with gameOver = true */
+    public Bridge(boolean gameOver){
+        setDescription();
+        createCharList();
+        createEventList();
+        createMap();
+        //by default, the player is not in a fight
+        fighting = false;
+
+        //by default, the troll is undefeated
+        gameOver = true;
     }
 
 
@@ -41,19 +63,33 @@ public class Bridge extends Location {
         mapOfEvents.put("GO TO GATE", new Event("GO TO GATE",
                 "\nYou walk towards the Transformation Link"));
         mapOfEvents.get("GO TO GATE").setLocation("GATE");
-        mapOfEvents.put("CHECK UNDER BRIDGE", new Event(
-                "CHECK UNDER BRIDGE", "\n There is " +
-                "something in the shadows; it is looking for a fight. A troll!"));
-        mapOfEvents.put("FIGHT TROLL", new Event("FIGHT TROLL",
-                "From under the bridge crawls a troll. He looks like" +
-                        " he spends a lot of time online."));
-        mapOfEvents.get("FIGHT TROLL").setNpc(listOfCharacters.get("FIGHT TROLL"));
+       // mapOfEvents.put("BRIDGE2 TRAVEL", );
+        if(!gameOver) {
+            mapOfEvents.put("CHECK UNDER BRIDGE", new Event(
+                    "CHECK UNDER BRIDGE", "\n There is " +
+                    "something in the shadows; it is looking for a fight. A troll!"));
+            mapOfEvents.put("FIGHT TROLL", new Event("FIGHT TROLL",
+                    "From under the bridge crawls a troll. He looks like" +
+                            " he spends a lot of time online."));
+            mapOfEvents.get("FIGHT TROLL").setNpc(listOfCharacters.get("FIGHT TROLL"));
+            mapOfEvents.put("ATTACK", new Event("ATTACK", ""));
+            mapOfEvents.get("ATTACK").setNpc(listOfCharacters.get("FIGHT TROLL"));
+            mapOfEvents.put("DEFEND", new Event("DEFEND", ""));
+            mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You try to cross the bridge, but " +
+                    "the troll blocks your path!"));
+        }else{
+                mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter " +
+                        "Padnos"));
+                mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
+        }
+    }
 
-        mapOfEvents.put("ATTACK", new Event("ATTACK",""));
-        mapOfEvents.get("ATTACK").setNpc(listOfCharacters.get("FIGHT TROLL"));
-        mapOfEvents.put("DEFEND",new Event("DEFEND", ""));
-        mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter Padnos"));
-        mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
+    /*******************************************************************************************************************
+     * Used to create a new eventList where player can go to Padnos location.
+     ******************************************************************************************************************/
+    private void editEventList(){
+        mapOfEvents = null;
+        createEventList();
     }
 
     /*******************************************************************************************************************
@@ -87,22 +123,24 @@ public class Bridge extends Location {
     @Override
     protected void createCharList() {
     listOfCharacters = new HashMap<String, Character>();
+    Character currChar;
+    if(!gameOver) {
         listOfCharacters.put("TROLL", new Character());
-        Character currChar = listOfCharacters.get("TROLL");
+        currChar = listOfCharacters.get("TROLL");
         currChar.setCharName("Gargafart the troll");
         currChar.setSpeechOptions("FIGHT", "I'm a troll and I want to fight you!");
         ;
         currChar.getCharStats().setAllStats(5, 7, 1, 2);
-
+    }
 
         listOfCharacters.put("PLAYER", new Character());
         currChar = listOfCharacters.get("PLAYER");
         currChar.getCharStats().setAllStats(20,5,3,2);
     }
  @Override
-    protected void Fight(Character m, Character e, String str,int movepool) {
+    protected void Fight(Character m, Character e, String str, int movepool) {
         boolean roundOver = false;
-        boolean gameOver = false;
+        gameOver = false;
         //Move Choice 0 = troll attacks back
         //Move Choice 1 =
         // Move Choice 2 =
@@ -114,7 +152,7 @@ public class Bridge extends Location {
             if (e.getCharStats().getHP() <= 0) {
                 fighting = false;
                 System.out.println("You Win");
-                gameOver =true;
+                gameOver = true;
             }
             if (m.getCharStats().getHP() <= 0) {
                 fighting = false;
@@ -144,7 +182,7 @@ public class Bridge extends Location {
                         if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
                             e.getCharStats().changeDef(-1);
                             e.getCharStats().changeStr(1);
-                            System.out.println("The Troll Went Berserk Plus 1 attack minus 1 defense");
+                            System.out.println("The Troll went Berserk: Plus 1 attack, minus 1 defense.");
                         }
                     }
 
@@ -153,8 +191,8 @@ public class Bridge extends Location {
                             System.out.println("Even the Trolls Special move could not hurt you");
                         } else {
                             m.getCharStats().damageCalculations(e.getCharStats().getStr() + e.getCharStats().getDef() - m.getCharStats().getDef());
-                            System.out.println("Enemy Unleashes Their Special Move Spiked Shield Bash and Deals " + (e.getCharStats().getStr() + e.getCharStats().getDef() -
-                                    m.getCharStats().getDef()) + " Damage Enemy Hp:" + m.getCharStats().getHP());
+                            System.out.println("Enemy Unleashes Their Special Move, Spiked Shield Bash, and deals " + (e.getCharStats().getStr() + e.getCharStats().getDef() -
+                                    m.getCharStats().getDef()) + " Damage. \nEnemy Hp:" + m.getCharStats().getHP());
                         }
                     }
 
@@ -198,17 +236,22 @@ public class Bridge extends Location {
 
                 }
             }
-        
-        if(gameOver == true) {
-            System.out.println("The Fight is Over");
+
+        if(gameOver) {
+            System.out.println("The Fight is over");
+            editEventList(); //makes it so that player can go to padnos
         }
     }
     @Override
     protected void setDescription() {
         name = " bridge";
-        flavorText = "\n You find yourself standing on a bridge.  you "
-                + "see a beautiful autumn scene with orange trees\nand"
-                + " a 50 foot drop to the ravine below.\n" +
-                "You are not alone. Try checking underneath the bridge...";
+        if(!gameOver) {
+            flavorText = "\n You find yourself standing on a bridge.  you "
+                    + "see a beautiful autumn scene with orange trees\nand"
+                    + " a 50 foot drop to the ravine below.\n" +
+                    "You are not alone. Try checking underneath the bridge...";
+        }else{
+            flavorText = "You breathe a sigh of relief and relax from the fight. What next?";
+        }
     }
 }
