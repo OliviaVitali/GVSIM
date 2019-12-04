@@ -16,10 +16,37 @@ public class Testing {
      * COMMANDS
      */
 
+    //Location testing: make location, check all events exist/have proper flavortext, npcs exist, map has proper item(s),
+    //proper description. NOTE: DO NOT change line formatting of flavortext or assertEquals will fail!
     @Test
-    public void GamePanelTest(){
-        GamePanel test = new GamePanel();
-        //assertTrue(test.getCurrLocation() == true); example, what should we test?
+    public void LocationTest(){
+        Gate g = new Gate();
+        //look event
+        assertNotNull(g.getEvent("LOOK"));
+        assertEquals(g.getEvent("LOOK").getFlavorText(), "\nIt's Saturday and you've been wandering " +
+                "around campus because...let's face it, you " +
+                "didn't really have anything else to do.\n" +
+                "By mistake, you've wandered under a large " +
+                "blue sculpture only to remember that you" +
+                " weren't supposed to walk under that.\nThe" +
+                " world shimmers and you see T Haas ahead, " +
+                "handing out ice cream.  Behind you is a bridge.");
+        //go to bridge event
+        assertEquals("\nYou walk towards the bridge", g.getEvent("GO TO BRIDGE").getFlavorText());
+        assertNotNull(g.getEvent("GO TO BRIDGE"));
+
+        //talk to t haas event
+        assertNotNull(g.getEvent("TALK TO T HAAS"));
+        assertEquals(g.getEvent("TALK TO T HAAS").getFlavorText(), "\n You walk up to a man at an ice cream cart." +
+                "\n He smiles at you.");
+        assertNotEquals(g.getEvent("TALK TO T HAAS").getNpc(), new Character()); //not Jenny
+
+        //map item
+        assertEquals(g.getMap(), "BRIDGE");
+
+        assertEquals(g.getName(), "GATE");
+
+        //todo: test fight?
     }
 
 }

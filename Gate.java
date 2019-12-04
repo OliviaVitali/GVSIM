@@ -35,11 +35,7 @@ public class Gate extends Location {
         mapOfEvents.get("TALK TO T HAAS").setNpc(listOfCharacters.get("TALK TO T HAAS"));
         mapOfEvents.get("TALK TO T HAAS").setName("TALK TO T HAAS");
         //mapOfEvents.get("TALK TO T HAAS").setFlavorText(listOfCharacters.get("TALK TO T HAAS").);
-
-
-
     }
-
 
     protected Event getEvent(String userCommand) {
         return mapOfEvents.get(userCommand);
