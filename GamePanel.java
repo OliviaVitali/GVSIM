@@ -13,7 +13,8 @@ public class GamePanel extends JPanel {
     /**
      * Unused yet.  Has image loaded into GUI
      */
-    ImageIcon icon = new ImageIcon("THaas.jpg");
+    ImageIcon icon = new ImageIcon(getClass().getResource("THaas.jpg"));
+    ImageIcon icon2 = new ImageIcon(getClass().getResource("testImage.jpg"));
     /**
      * menu for GUI
      */
@@ -131,16 +132,6 @@ public class GamePanel extends JPanel {
         currChar = new Character();
     }
 
-    /** Getter for currLocation */
-    public Location getCurrLocation(){
-        return currLocation;
-    }
-
-    /**Setter for currLocation, used in bridge class */
-    public static void setCurrLocation(Location x){
-        currLocation = x;
-
-    }
 
     /**
     * helper method to create flavortext for game not used elsewhere
@@ -182,7 +173,7 @@ public class GamePanel extends JPanel {
     private void setPanel() {
         panel = new JPanel();
         label = new JLabel("Enter Text");
-        //lbl.setIcon(icon); // Sets image
+        lbl = new JLabel("");
         tf = new JTextField(20); // accepts up to 20 characters
         send = new JButton("Send");
         send.addActionListener(listener);
@@ -462,8 +453,10 @@ public class GamePanel extends JPanel {
     private class listener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             //updates text area with flavortext
-            if (send == event.getSource())
+            if (send == event.getSource()) {
                 updateEvent(tf.getText());
+                lbl.setIcon(icon);
+            }
             //resets text box for user commands
             if (reset == event.getSource())
                 tf.setText(null);

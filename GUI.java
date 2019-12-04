@@ -22,9 +22,9 @@ public class GUI {
         frame.getContentPane().add(BorderLayout.NORTH, panel.mb);
         frame.getContentPane().add(BorderLayout.SOUTH, panel.panel);
         frame.getContentPane().add(BorderLayout.CENTER, panel.scroll);
+        frame.getContentPane().add(BorderLayout.WEST, panel.lbl);
         frame.setVisible(true);
         frame.getRootPane().setDefaultButton(panel.send);
-        //frame.add(panel.lbl);
         frame.setVisible(true);
     }
 }
