@@ -20,7 +20,7 @@ public class Testing {
     //proper description. NOTE: DO NOT change line formatting of flavortext or assertEquals will fail!
     @Test
     public void LocationTest(){
-        /**Gate location */
+        /** Gate location */
         Gate g = new Gate();
         //look event
         assertNotNull(g.getEvent("LOOK"));
@@ -54,6 +54,7 @@ public class Testing {
 
         /** Bridge location */ //todo: test troll death
         Bridge b = new Bridge();
+        //PRE-TROLL DEATH
         //look event
         assertNotNull(b.getEvent("LOOK"));
         assertEquals(b.getEvent("LOOK").getFlavorText(), "\nIt's Saturday and you've been wandering " +
@@ -65,11 +66,12 @@ public class Testing {
                 " world shimmers and you see T Haas ahead, " +
                 "handing out ice cream.  Behind you is a bridge.");
         //go to gate event
-        assertEquals("\nYou walk towards the bridge", b.getEvent("GO TO GATE").getFlavorText());
-        assertNotNull(g.getEvent("GO TO GATE"));
+        assertEquals("\nYou walk towards the gate ", b.getEvent("GO TO GATE").getFlavorText());
+        assertNotNull(b.getEvent("GO TO GATE"));
 
         //go to padnos event
-
+        assertEquals("You try to cross the bridge, but " +
+                "the troll blocks your path!", b.getEvent("GO TO PADNOS").getFlavorText());
 
         //map item
         assertEquals(g.getMap(), "GATE");

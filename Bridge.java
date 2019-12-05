@@ -40,6 +40,22 @@ public class Bridge extends Location {
         gameOver = false;
     }
 
+    /*******************************************************************************************************************
+     * Getter for gameOver variable
+     * @return gameOver value (true/false)
+     ******************************************************************************************************************/
+    public boolean getGameOver() {
+        return gameOver;
+    }
+
+    /*******************************************************************************************************************
+     * Setter for gameOver boolean
+     * @param gameOver set it to true or false
+     ******************************************************************************************************************/
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
 
     /*******************************************************************************************************************
      * Helper method to create list of events.  An event is triggered by the string (user input) and will return a
