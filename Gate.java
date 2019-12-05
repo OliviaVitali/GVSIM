@@ -9,6 +9,7 @@ import javax.swing.*;
  *  @version 1
  **********************************************************************************************************************/
 public class Gate extends Location {
+    public String fightableString;
     ImageIcon icon = new ImageIcon(getClass().getResource("TransformationLink15.png"));
 
     /*******************************************************************************************************************
@@ -21,6 +22,7 @@ public class Gate extends Location {
         createMap();
         createCharList();
         createEventList();
+        fightableString = "TALK TO T HAAS";
     }
 
     /*******************************************************************************************************************
@@ -142,4 +144,13 @@ public class Gate extends Location {
      * Getter for name of this area
      ******************************************************************************************************************/
     public String getName() {return name;}
+    @Override
+    protected void setFightableString(String str) {
+        fightableString = str;
+    }
+
+    @Override
+    protected String getFightableString() {
+        return fightableString;
+    }
 }

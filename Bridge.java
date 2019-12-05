@@ -12,7 +12,7 @@ import java.util.Random;
  **********************************************************************************************************************/
 public class Bridge extends Location {
     /** Icon for the bridge */
-    ImageIcon icon = new ImageIcon(getClass().getResource("LittleMak15(2).jpg"));
+    //ImageIcon icon = new ImageIcon(getClass().getResource("LittleMak15(2).jpg"));
 
     /** indicates if the player is in a fight */
     public boolean fighting;
@@ -20,6 +20,7 @@ public class Bridge extends Location {
     /** Public so it can be used in multiple methods */
     private boolean gameOver;
 
+    public String fightableString;
     /** restrictions so troll cant use special move twice */
     int restrictions;
 
@@ -38,6 +39,7 @@ public class Bridge extends Location {
         fighting = false;
         //by default, the troll is undefeated
         gameOver = false;
+        fightableString = "TROLL";
     }
 
     /*******************************************************************************************************************
@@ -311,7 +313,16 @@ public class Bridge extends Location {
      * Sets the picture displayed for this area.
      ******************************************************************************************************************/
     protected void setImage(){
-        image = icon;
+        //image = icon;
+    }
+    @Override
+    protected void setFightableString(String str) {
+        fightableString = str;
+    }
+
+    @Override
+    protected String getFightableString() {
+        return fightableString;
     }
 }
 

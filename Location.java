@@ -48,6 +48,12 @@ public abstract class Location {
 
     /** sets flavor text for area */
     protected abstract void setDescription();
+
+    /** gets the string that allows fight */
+    protected abstract String getFightableString();
+
+    /** sets the string that allows fight */
+    protected abstract void setFightableString(String str);
 }
 
 //end location class

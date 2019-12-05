@@ -10,19 +10,21 @@ import java.util.HashMap;
  **********************************************************************************************************************/
 public class Padnos extends Location {
 
-    /** indicates if the player is in a fight */
+    /**
+     * indicates if the player is in a fight
+     */
     public boolean fighting;
-
+    public String fightableString;
     /*******************************************************************************************************************
      * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
      * events related to the flavor text.
      ******************************************************************************************************************/
-    public Padnos(){
+    public Padnos() {
         setDescription();
         createCharList();
         createEventList();
         createMap();
-
+        fightableString = "";
         fighting = false; //player is not in a fight by default
     }
 
@@ -85,7 +87,7 @@ public class Padnos extends Location {
      * @return 2 for testing purposes.
      ******************************************************************************************************************/
     @Override
-    protected int Fight(Character m, Character e, String str,int movepool){
+    protected int Fight(Character m, Character e, String str, int movepool) {
         return 2;
     }
 
@@ -96,7 +98,7 @@ public class Padnos extends Location {
     @Override
     protected String getMap() {
         String temp = "";
-        for (int i = 0; i < listOfTraversable.length; i++){
+        for (int i = 0; i < listOfTraversable.length; i++) {
             if (listOfTraversable[i] != null)
                 temp += listOfTraversable[i];
         }
@@ -134,8 +136,18 @@ public class Padnos extends Location {
     /*******************************************************************************************************************
      * Getter for name of this area
      ******************************************************************************************************************/
-    public String getName() {return name;}
+    public String getName() {
+        return name;
+    }
 
+    @Override
+    protected void setFightableString(String str) {
+        fightableString = str;
+    }
+
+    @Override
+    protected String getFightableString() {
+        return fightableString;
+    }
 }
-
 //end Padnos

@@ -53,6 +53,9 @@ public class GamePanel extends JPanel {
     /** Boolean to make sure level up works */
     boolean alreadyLvl;
 
+    /** String that holds the thing being fought */
+    String enemy;
+
     /** Connects text box title to text box for more readable coding */
     Map<String, String> dicFlavorText;
 
@@ -69,9 +72,12 @@ public class GamePanel extends JPanel {
     /** The current default hp which is needed to reset after a fight */
     int defaultHp = 20;
 
+    /** The current default Defense which is needed to reset after a fight */
+    int defaultDef = 2;
+
     /** Random number to restrict move pool and related ints*/
     Random res = new Random();
-    int bound = 2;
+    int bound = 3;
     int restrictions = res.nextInt(2);
 
     /*******************************************************************************************************************
@@ -105,7 +111,9 @@ public class GamePanel extends JPanel {
         player.setCharName("ORCS");
         player.getCharStats().setAllStats(20,5,3,2);
         //by default, current character is set to Jenny. If you reach Jenny, you've messed up.
+        player.getCharStats().levelUp(5);
         currChar = new Character();
+        enemy = "";
     }
 
     /*******************************************************************************************************************
@@ -312,7 +320,7 @@ public class GamePanel extends JPanel {
         //If the string contains fight it runs and uses print statements to test if working
         //Also makes sure to initialize a fight unless one is already initialized
         restrictions = res.nextInt(bound);
-        if(restrictions == 3){
+        if(restrictions == 2){
             bound = 2;
         }
         if (currEvent.getName().contains("FIGHT")) {
