@@ -51,7 +51,10 @@ public class Stats {
      * @param hit how much damage is being dealt
      ******************************************************************************************************************/
     public void damageCalculations(int hit){
-        hp -= hit - defense;
+        hp -= hit;
+        if(hp < 0) {
+            hp = 0;
+        }
     }
 
     /*******************************************************************************************************************
@@ -85,6 +88,13 @@ public class Stats {
         defense += i;
     }
 
+    /******************************************************************
+     * Sets Defense used to reset after a fight
+     * @param i number to add to defense
+     *****************************************************************/
+    public void setDefense(int i){
+        defense = i;
+    }
     /*******************************************************************************************************************
      * Updates only Speed
      * @param i number to add to speed

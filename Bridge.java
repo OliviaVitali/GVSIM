@@ -188,26 +188,26 @@ public class Bridge extends Location {
     @Override
     protected int Fight(Character m, Character e, String str, int movepool) {
         boolean roundOver = false;
-        gameOver = false;
+        boolean gameOver = false;
         //Move Choice 0 = troll attacks back
         //Move Choice 1 =
-        //Move Choice 2 =
+        // Move Choice 2 =
         int movechoice = movepool;
-     if (str.equals("START")) {
+        if (str.equals("START")) {
             fighting = true;
         }
-     while (fighting && !str.equals("START") && !roundOver) {
+        while (fighting && !str.equals("START") && !roundOver) {
             if (e.getCharStats().getHP() <= 0) {
                 fighting = false;
                 System.out.println("You Win");
-                gameOver = true;
+                gameOver =true;
             }
             if (m.getCharStats().getHP() <= 0) {
                 fighting = false;
                 System.out.println("You Lose");
                 gameOver = true;
             }
-            if (str.equals("ATTACK")) {
+            if (str == "ATTACK") {
                 System.out.println("Is this working.jpg");
                 if (e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
                     if (e.getCharStats().getDef() > m.getCharStats().getStr()) {
@@ -229,8 +229,8 @@ public class Bridge extends Location {
                     if(movechoice == 1){
                         if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
                             e.getCharStats().changeDef(-1);
-                            e.getCharStats().changeStr(1);
-                            System.out.println("The Troll went Berserk: Plus 1 attack, minus 1 defense.");
+                            e.getCharStats().changeStr(3);
+                            System.out.println("The Troll Went Berserk Plus 3 attack minus 1 defense");
                         }
                     }
 
@@ -239,8 +239,8 @@ public class Bridge extends Location {
                             System.out.println("Even the Trolls Special move could not hurt you");
                         } else {
                             m.getCharStats().damageCalculations(e.getCharStats().getStr() + e.getCharStats().getDef() - m.getCharStats().getDef());
-                            System.out.println("Enemy Unleashes Their Special Move, Spiked Shield Bash, and deals " + (e.getCharStats().getStr() + e.getCharStats().getDef() -
-                                    m.getCharStats().getDef()) + " Damage. \nEnemy Hp:" + m.getCharStats().getHP());
+                            System.out.println("Enemy Unleashes Their Special Move Spiked Shield Bash and Deals " + (e.getCharStats().getStr() + e.getCharStats().getDef() -
+                                    m.getCharStats().getDef()) + " Damage Enemy Hp:" + m.getCharStats().getHP());
                         }
                     }
 
@@ -248,47 +248,49 @@ public class Bridge extends Location {
                     roundOver = true;
                 }
             }
-                if(str.equals("DEFEND")){
-                    if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
-                       m.getCharStats().changeDef(2);
-                    }
-                    if (e.getCharStats().getHP() > 0 && m.getCharStats().getHP() >0) {
-                        if(movechoice == 0) {
-                            if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
-                                System.out.println("You Realize wait this troll is kinda weak, the trolls attack does nothing ");
-                            } else {
-                                m.getCharStats().damageCalculations(e.getCharStats().getStr() - m.getCharStats().getDef());
-                                System.out.println("Enemy Deals " + (e.getCharStats().getStr() - m.getCharStats().getDef()) + " Damage \n Your Hp is:" + m.getCharStats().getHP());
-                            }
-                        }
-                        if(movechoice == 1){
-                            if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
-                                e.getCharStats().changeDef(-1);
-                                e.getCharStats().changeStr(1);
-                                System.out.println("The Troll Went Berserk Plus 1 attack minus 1 defense");
-                            }
-                        }
-
-                        if(movechoice == 2){
-                            if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
-                                System.out.println("Even the Trolls Special move could not hurt you");
-                            } else {
-                                m.getCharStats().damageCalculations(e.getCharStats().getStr() + e.getCharStats().getDef() - m.getCharStats().getDef());
-                                System.out.println("Enemy Unleashes Their Special Move Spiked Shield Bash and Deals " + (e.getCharStats().getStr() + e.getCharStats().getDef() -
-                                        m.getCharStats().getDef()) + " Damage Enemy Hp:" + m.getCharStats().getHP());
-                            }
-                        }
-                        roundOver = true;
-                        movechoice = movepool;
-                    }
+            if(str == "DEFEND"){
+                if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
+                    m.getCharStats().changeDef(2);
                 }
+                if (e.getCharStats().getHP() > 0 && m.getCharStats().getHP() >0) {
+                    if(movechoice == 0) {
+                        if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
+                            System.out.println("You Realize wait this troll is kinda weak, the trolls attack does nothing ");
+                        } else {
+                            m.getCharStats().damageCalculations(e.getCharStats().getStr() - m.getCharStats().getDef());
+                            System.out.println("Enemy Deals " + (e.getCharStats().getStr() - m.getCharStats().getDef()) + " Damage \n Your Hp is:" + m.getCharStats().getHP());
+                        }
+                    }
+                    if(movechoice == 1){
+                        if(e.getCharStats().getHP() > 0 && m.getCharStats().getHP() > 0) {
+                            e.getCharStats().changeDef(-1);
+                            e.getCharStats().changeStr(3);
+                            System.out.println("The Troll Went Berserk Plus 1 attack minus 1 defense");
+                        }
+                    }
+
+                    if(movechoice == 2){
+                        if (m.getCharStats().getDef() > e.getCharStats().getStr()) {
+                            System.out.println("Even the Trolls Special move could not hurt you");
+                        } else {
+                            m.getCharStats().damageCalculations(e.getCharStats().getStr() + e.getCharStats().getDef() - m.getCharStats().getDef());
+                            System.out.println("Enemy Unleashes Their Special Move Spiked Shield Bash and Deals " + (e.getCharStats().getStr() + e.getCharStats().getDef() -
+                                    m.getCharStats().getDef()) + " Damage Enemy Hp:" + m.getCharStats().getHP());
+                        }
+                    }
+                    roundOver = true;
+                    movechoice = movepool;
+                }
+
             }
-        if(gameOver) {
-            System.out.println("The Fight is over");
+        }
+
+        if(gameOver == true) {
+            System.out.println("The Fight is Over");
             //after troll is defeated, area changes
-            setDescription(); //changes area description
-            editCharList(); //makes player only character present
-            editEventList(); //makes it so that player can go to padnos
+           // setDescription(); //changes area description
+            //editCharList(); //makes player only character present
+            //editEventList(); //makes it so that player can go to padnos
         }
         return 1; //for testing
     }

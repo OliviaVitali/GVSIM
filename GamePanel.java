@@ -319,26 +319,28 @@ public class GamePanel extends JPanel {
         //Start of Cameron's Fight Shenanigans
         //If the string contains fight it runs and uses print statements to test if working
         //Also makes sure to initialize a fight unless one is already initialized
+        enemy = currLocation.getFightableString();
+        System.out.println(enemy);
         restrictions = res.nextInt(bound);
         if(restrictions == 2){
             bound = 2;
         }
         if (currEvent.getName().contains("FIGHT")) {
             System.out.println(userCommand);
-           if (userCommand.contains("FIGHT")) {
-               System.out.println(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
-               System.out.println("2");
-               ta.append(currLocation.listOfCharacters.get("TROLL").getSpeech(userCommand));
-               System.out.println("9");
+            if (userCommand.contains("FIGHT")) {
+                System.out.println(currLocation.listOfCharacters.get(enemy).getCharStats().getHP());
+                System.out.println("2");
+                ta.append(currLocation.listOfCharacters.get(enemy).getSpeech(userCommand));
+                System.out.println("9");
             }
             //If the character is already dead why fight it
-            if(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP() <= 0) {
+            if(currLocation.listOfCharacters.get(enemy).getCharStats().getHP() <= 0) {
                 System.out.println("14");
                 alreadyLvl = true;
                 ta.append("\n You can't fight a dead body -_-");
 
                 //If your already in a fight why are you trying to start another
-            } else if (theGoodFight) {
+            } else if (theGoodFight == true) {
                 System.out.println("6");
                 ta.append("\n You are already in a fight. LOOK ALIVE.");
 
@@ -346,102 +348,107 @@ public class GamePanel extends JPanel {
                 //Starting up the fight
                 alreadyLvl = false;
                 theGoodFight = true;
-                currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "START", restrictions);
+                currLocation.Fight(player, currLocation.listOfCharacters.get(enemy), "START", restrictions);
                 System.out.println("3");
                 ta.append("\n LET THE FIGHT BEGIN");
                 ta.append("\n Player Stats: \n Hp = " + player.getCharStats().getHP());
                 ta.append("\n Str = " + player.getCharStats().getStr());
                 ta.append("\n Def = " + player.getCharStats().getDef());
                 ta.append("\n Spd = " + player.getCharStats().getSpd());
-                ta.append("\n" + currLocation.listOfCharacters.get("TROLL").getCharName() + " Stats: \n Hp = " +
-                        currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
-                ta.append("\n Str = " + currLocation.listOfCharacters.get("TROLL").getCharStats().getStr());
-                ta.append("\n Def = " + currLocation.listOfCharacters.get("TROLL").getCharStats().getDef());
-                ta.append("\n Spd = " + currLocation.listOfCharacters.get("TROLL").getCharStats().getSpd());
+                ta.append("\n" + currLocation.listOfCharacters.get(enemy).getCharName() + " Stats: \n Hp = " +
+                        currLocation.listOfCharacters.get(enemy).getCharStats().getHP());
+                ta.append("\n Str = " + currLocation.listOfCharacters.get(enemy).getCharStats().getStr());
+                ta.append("\n Def = " + currLocation.listOfCharacters.get(enemy).getCharStats().getDef());
+                ta.append("\n Spd = " + currLocation.listOfCharacters.get(enemy).getCharStats().getSpd());
             }
         }
         //Attack logic
         if (currEvent.getName().equals("ATTACK")) {
-            if (!theGoodFight) {
+            if (theGoodFight == false) {
                 ta.append("\n Maaaayyybbbbeeee you should try and initiate a fight before you go attacking someone");
 
             }
+            else if(player.getCharStats().getHP()<=0){
+                theGoodFight = false;
+                ta.append("Game Over You Lose");
+            }
             //no overkill
-            else if (currLocation.listOfCharacters.get("TROLL").getCharStats().getHP() <= 0) {
+            else if (currLocation.listOfCharacters.get(enemy).getCharStats().getHP() <= 0) {
                 alreadyLvl = true;
                 ta.append("\n They are already dead R E L A X");
             }
             //Allow the Fight
             else {
-                currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "ATTACK",restrictions);
+                currLocation.Fight(player, currLocation.listOfCharacters.get(enemy), "ATTACK",restrictions);
                 if(restrictions == 0) {
                     ta.append("\n You Attack the Troll and he Attacks back \n Player hp:" + player.getCharStats().getHP()
-                            + "\n Enemy hp:" + currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
+                            + "\n Enemy hp:" + currLocation.listOfCharacters.get(enemy).getCharStats().getHP());
                 }
                 if(restrictions == 1){
-                    ta.append("\n The Enemy went Berserk the Troll Raises his attack by one but lowers his defenses" +
+                    ta.append("\n The Enemy went Berserk the Troll Raises his attack by 3 but lowers his defenses" +
                             "\n Player hp:" + player.getCharStats().getHP()
-                            + "\n Enemy hp:" + currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
+                            + "\n Enemy hp:" + currLocation.listOfCharacters.get(enemy).getCharStats().getHP());
                 }
                 if(restrictions == 2){
                     ta.append("\n The Troll unleashes a devastating special attack SPIKED SHIELD" +
                             "\n Player hp:" + player.getCharStats().getHP() +
-                             "\n Enemy hp:" + currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
+                            "\n Enemy hp:" + currLocation.listOfCharacters.get(enemy).getCharStats().getHP());
                 }
             }
         }
         if (currEvent.getName().equals("DEFEND")) {
-            if (!theGoodFight) {
-                ta.append("\n What are you even trying to block");
-            } else if (currLocation.listOfCharacters.get("TROLL").getCharStats().getHP() <= 0) {
+            if (theGoodFight == false) {
+                ta.append("\n You raise your shield but to what affect you are just standing there looking stupid");
+            } else if (currLocation.listOfCharacters.get(enemy).getCharStats().getHP() <= 0) {
                 alreadyLvl = true;
                 ta.append("\n There is no t-bagging in this game you look like a fool");
             } else if (player.getCharStats().getDef() >= 30) {
-                ta.append("\n Olivia Said your defense cant go that high");
+                ta.append("\n You are a tank your defense cannot go higher");
             } else {
-                currLocation.Fight(player, currLocation.listOfCharacters.get("TROLL"), "DEFEND",restrictions);
-                ta.append("\n You raise your shield to the sun, imbued with sunlight your shield receives + 2 Defense");
+                currLocation.Fight(player, currLocation.listOfCharacters.get(enemy), "DEFEND",restrictions);
+                ta.append("\n You raise your shield to the sun, imbued with sunlight your shield receives + 2 Defense ");
                 ta.append("\n Your Defense is now:" + player.getCharStats().getDef());
                 if(restrictions == 0) {
-                    ta.append("\n The Troll mocks you calling you a coward for trying to block his attack but " +
-                            "ultimately did nothing");
+                    ta.append("\n The Troll mocks you calling you a coward for trying to block his attack" +
+                            "\n Player hp:" + player.getCharStats().getHP()
+                            + "\n Enemy hp:" + currLocation.listOfCharacters.get(enemy).getCharStats().getHP());
                 }
                 if(restrictions == 1){
-                    ta.append("\n The Enemy went Berserk the Troll Raises his attack by one but lowers his defenses" +
+                    ta.append("\n The Enemy went Berserk the Troll Raises his attack by 3 but lowers his defenses" +
                             "\n Player hp:" + player.getCharStats().getHP()
-                            + "\n Enemy hp:" + currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
+                            + "\n Enemy hp:" + currLocation.listOfCharacters.get(enemy).getCharStats().getHP());
                 }
                 if(restrictions == 2){
                     ta.append("\n The Troll unleashes a devastating special attack SPIKED SHIELD" +
                             "\n Player hp:" + player.getCharStats().getHP() +
-                            "\n Enemy hp:" + currLocation.listOfCharacters.get("TROLL").getCharStats().getHP());
+                            "\n Enemy hp:" + currLocation.listOfCharacters.get(enemy).getCharStats().getHP());
                 }
             }
         }
         // This is the Level up section if the troll is killed the player will level up
-        if(currLocation.listOfCharacters.get("TROLL").getCharStats().getHP()<=0 && !alreadyLvl){
+        if(currLocation.listOfCharacters.get(enemy).getCharStats().getHP()<=0 && alreadyLvl == false){
             //Player level up
             player.getCharStats().resetHp(defaultHp);
+            player.getCharStats().setDefense(defaultDef);
             Random levelup = new Random();
             int hplvl = levelup.nextInt(4);
             int strlvl = levelup.nextInt(4);
             int deflvl = levelup.nextInt(4);
             int spdlvl = levelup.nextInt(4);
             defaultHp = player.getCharStats().getHP()+hplvl;
-            player.getCharStats().setAllStats(player.getCharStats().getHP()+hplvl,
-                    player.getCharStats().getStr() + strlvl,player.getCharStats().getSpd() +spdlvl,
-                    player.getCharStats().getDef() +deflvl);
-            ta.append("\n You Leveled up!!!!!! \n Level" + player.getCharStats().getLevel() + "->" +
-                    (player.getCharStats().getLevel() + 1));
+            defaultDef =  player.getCharStats().getDef()+deflvl;
+            player.getCharStats().setAllStats(player.getCharStats().getHP()+hplvl,player.getCharStats().getStr() + strlvl,
+                    player.getCharStats().getSpd() +spdlvl,player.getCharStats().getDef() +deflvl);
+            ta.append("\n You Leveled up!!!!!! \n Level" + player.getCharStats().getLevel() + "->" + (player.getCharStats().getLevel() + 1));
             player.getCharStats().levelUp(player.getCharStats().getLevel()+1);
             ta.append("\n Increased Stats to: \n Hp = " + player.getCharStats().getHP());
             ta.append("\n Str = " + player.getCharStats().getStr());
             ta.append("\n Def = " + player.getCharStats().getDef());
             ta.append("\n Spd = " + player.getCharStats().getSpd());
         }
+
         //End of Cameron's Fight Shenanigans
     }
-
     /*******************************************************************************************************************
      * listener class relates user input to game play
      * This includes buttons and user entered commands (strings)

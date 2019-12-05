@@ -49,7 +49,7 @@ public class Testing {
         assertEquals(g.getName(), "GATE");
 
         //test fight
-        assertEquals(g.Fight(new Character(), new Character(), "!", 1), 0);
+       assertEquals(g.Fight(new Character(), new Character(), "!", 1), 0);
 
 
         /** Bridge location */ //todo: test troll death
