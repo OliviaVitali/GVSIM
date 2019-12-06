@@ -94,7 +94,7 @@ public class Testing {
         b.getEvent("FIGHT");
         assertNotEquals(b.getGameOver(), true);
         b.setGameOver(true);
-        assertEquals(b.getGameOver(), true);
+        assertTrue(b.getGameOver());
     }
     @Test
     public void characterTesting(){
@@ -119,12 +119,12 @@ public class Testing {
 
         //test if player
         testChar.setIsPlayer(false);
-        assertEquals(testChar.isPlayer(), false);
+        assertFalse(testChar.isPlayer());
 
         //test fightability
-        assertEquals(testChar.isFightable(), true);
+        assertTrue(testChar.isFightable());
         testChar.setCharStats(null);
-        assertEquals(testChar.isFightable(),false);
+        assertFalse(testChar.isFightable());
     }
 
     @Test
@@ -207,6 +207,7 @@ public class Testing {
         defaultEvent.setNpc(testChar3);
         assertNull(defaultEvent.getSpeech());
 
-
     }
 }
+
+//end Test class

@@ -5,8 +5,7 @@ import java.util.Map;
  * A class that acts as a template for characters, either NPC or the Player.
  * @author Olivia Vitali
  **********************************************************************************************************************/
-public class
-Character {
+public class Character {
     /** name of character*/
     private String charName;
     /** User command then speech options for character */
@@ -22,10 +21,10 @@ Character {
     private String list;
 
 
-/***********************************************************************************************************************
-*Getter for Character name
-* @return charName which is the character's name
-***********************************************************************************************************************/
+    /*******************************************************************************************************************
+    *Getter for Character name
+    * @return charName which is the character's name
+    *******************************************************************************************************************/
     public String getCharName() {
         return charName;
     }
@@ -46,7 +45,7 @@ Character {
     }
 
     /*******************************************************************************************************************
-    * setter to add speach options
+    * setter to add speech options
     * @param call is the user command
     * @param response is the NPC's response
     *******************************************************************************************************************/
@@ -105,7 +104,7 @@ Character {
         isPlayer = player;
     }
 
-    
+
     /*******************************************************************************************************************
     * Default constructor for a character
     * if not changed, the character is Jenny.  Note: Jenny should not be
@@ -113,7 +112,7 @@ Character {
     *******************************************************************************************************************/
     public Character() {
         charName = "Jenny";
-        description = "\nA girl with a cell phone in her hand.";
+        description = "\nA girl with a cell phone in her hand."; //her phone number is 867-5309, like the song :)
         speechOptions = new HashMap<String, String>();
         speechOptions.put("HELLO", "\n...world?");
         speechOptions.put("HI", "\nIt's nice to meet you.");

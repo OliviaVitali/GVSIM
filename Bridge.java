@@ -21,7 +21,9 @@ public class Bridge extends Location {
     /** Public so it can be used in multiple methods */
     private boolean gameOver;
 
+    /** For use in testing */
     public String fightableString;
+
     /** restrictions so troll cant use special move twice */
     int restrictions;
 
@@ -29,7 +31,7 @@ public class Bridge extends Location {
      * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
      * events related to the flavor text.
      ******************************************************************************************************************/
-    public Bridge(){
+    public Bridge() {
         //order listed below should not be changed
         setDescription();
         setImage();
@@ -40,6 +42,7 @@ public class Bridge extends Location {
         fighting = false;
         //by default, the troll is undefeated
         gameOver = false;
+        //the character you can fight
         fightableString = "TROLL";
     }
 
@@ -89,11 +92,11 @@ public class Bridge extends Location {
             //blocks you from advancing to padnos
             mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You try to cross the bridge, but " +
                     "the troll blocks your path!"));
-        }else{ //for when method is called again after troll dies
+        } else { //for when method is called again after troll dies
             mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
             //allows travel to padnos
             mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter " +
-                    "Padnos")); //todo: fix look
+                    "Padnos"));
             mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
         }
     }
@@ -148,7 +151,6 @@ public class Bridge extends Location {
                 temp += listOfTraversable[i];
         }
         return temp;
-        //return listOfTraversable.toString();
     }
 
     /*******************************************************************************************************************
@@ -191,8 +193,7 @@ public class Bridge extends Location {
         boolean roundOver = false;
         boolean gameOver = false;
         //Move Choice 0 = troll attacks back
-        //Move Choice 1 =
-        // Move Choice 2 =
+
         int movechoice = movepool;
         if (str.equals("START")) {
             fighting = true;
@@ -289,9 +290,9 @@ public class Bridge extends Location {
         if(gameOver == true) {
             System.out.println("The Fight is Over");
             //after troll is defeated, area changes
-           // setDescription(); //changes area description
-            //editCharList(); //makes player only character present
-            //editEventList(); //makes it so that player can go to padnos
+            setDescription(); //changes area description
+            editCharList(); //makes player only character present
+            editEventList(); //makes it so that player can go to padnos
         }
         return 1; //for testing
     }
@@ -318,11 +319,19 @@ public class Bridge extends Location {
     protected void setImage(){
         image = icon;
     }
+
+    /*******************************************************************************************************************
+     * A setter for the variable FightableString
+     ******************************************************************************************************************/
     @Override
     protected void setFightableString(String str) {
         fightableString = str;
     }
 
+    /*******************************************************************************************************************
+     * A getter for the variable FightableString
+     * @return fightableString
+     ******************************************************************************************************************/
     @Override
     protected String getFightableString() {
         return fightableString;

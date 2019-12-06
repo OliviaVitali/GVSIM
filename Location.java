@@ -26,8 +26,6 @@ public abstract class Location {
     /** String refers to the user command.  Event is related event */
     protected Map<String, Event> mapOfEvents;
 
-    //public Location(){} //every location needs a constructor
-
     /** helper method to create events in the area (excluding fights)*/
     protected abstract void createEventList();
 

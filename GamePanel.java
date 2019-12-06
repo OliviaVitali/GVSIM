@@ -11,17 +11,13 @@ import java.util.Random;
 * @version 4
 ***********************************************************************************************************************/
 public class GamePanel extends JPanel {
-    /*******************************************************************************************************************
-     * Default image for the GUI
-     *******************************************************************************************************************/
+    /**Default image for the GUI */
     ImageIcon icon = new ImageIcon(getClass().getResource("TransformationLink15.png"));
-    /**
-     * menu for GUI
-     */
+    /** menu for GUI */
     public JMenuBar mb;
-    JMenu m1;
+    //JMenu m1;
     JButton helpButton, mapButton, convoChoices, fightChoices;
-    JMenuItem m11, m22;
+    //JMenuItem m11, m22;
     public JPanel panel;
     JLabel label, lbl;
 
@@ -48,6 +44,7 @@ public class GamePanel extends JPanel {
 
     /** All locations are stored in a map */
     Map<String, Location> listAllLocations;
+
     /** Boolean that make sure user initiated a fight */
     boolean theGoodFight;
 
@@ -65,8 +62,10 @@ public class GamePanel extends JPanel {
 
     /** player character */
     Character player;
+
     /** the npc currently interacted with */
     Character currChar;
+
     /** current event being referenced */
     Event currEvent;
 
@@ -216,8 +215,6 @@ public class GamePanel extends JPanel {
     private void conversation(String cmd, Character c) {
         //handles conversation with npc
 
-        //ta.append(dicFlavorText.get("TALK") + c.getCharName()); todo: remove this(?)
-
         //try catch handles invalid user commands
         try {
             //while in conversation, trigger talking options
@@ -298,7 +295,6 @@ public class GamePanel extends JPanel {
             tf.setText(null);
         }
 
-        //TODO update so that only conversation, location change, or fight occur
         //updates location if event has a location and prints new
         //location's flavortext
         try {
@@ -341,7 +337,7 @@ public class GamePanel extends JPanel {
                 ta.append("\n You can't fight a dead body -_-");
 
                 //If your already in a fight why are you trying to start another
-            } else if (theGoodFight == true) {
+            } else if (theGoodFight) {
                 System.out.println("6");
                 ta.append("\n You are already in a fight. LOOK ALIVE.");
 
@@ -365,7 +361,7 @@ public class GamePanel extends JPanel {
         }
         //Attack logic
         if (currEvent.getName().equals("ATTACK")) {
-            if (theGoodFight == false) {
+            if (!theGoodFight) {
                 ta.append("\n Maaaayyybbbbeeee you should try and initiate a fight before you go attacking someone");
 
             }
@@ -398,7 +394,7 @@ public class GamePanel extends JPanel {
             }
         }
         if (currEvent.getName().equals("DEFEND")) {
-            if (theGoodFight == false) {
+            if (!theGoodFight) {
                 ta.append("\n You raise your shield but to what affect you are just standing there looking stupid");
             } else if (currLocation.listOfCharacters.get(enemy).getCharStats().getHP() <= 0) {
                 alreadyLvl = true;
@@ -427,7 +423,7 @@ public class GamePanel extends JPanel {
             }
         }
         // This is the Level up section if the troll is killed the player will level up
-        if(currLocation.listOfCharacters.get(enemy).getCharStats().getHP()<=0 && alreadyLvl == false){
+        if(currLocation.listOfCharacters.get(enemy).getCharStats().getHP()<=0 && !alreadyLvl){
             //Player level up
             player.getCharStats().resetHp(defaultHp);
             player.getCharStats().setDefense(defaultDef);

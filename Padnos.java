@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.HashMap;
 
 /***********************************************************************************************************************
@@ -8,13 +7,14 @@ import java.util.HashMap;
  * @author Sarah Arnott
  * @version 2
  **********************************************************************************************************************/
-public class    Padnos extends Location {
+public class Padnos extends Location {
 
-    /**
-     * indicates if the player is in a fight
-     */
+    /** indicates if the player is in a fight */
     public boolean fighting;
+
+    /**Represents who can be fought in this area */
     public String fightableString;
+
     /*******************************************************************************************************************
      * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
      * events related to the flavor text.
@@ -24,7 +24,7 @@ public class    Padnos extends Location {
         createCharList();
         createEventList();
         createMap();
-        fightableString = "";
+        fightableString = ""; //no fightable characters here
         fighting = false; //player is not in a fight by default
     }
 
@@ -59,10 +59,7 @@ public class    Padnos extends Location {
                 " sit down in the classroom and start taking notes on the lecture."));
         mapOfEvents.put("LEAVE CLASS", new Event("LEAVE CLASS", "You excuse yourself from the classroom." +
                 " You've learned enough for now."));
-        //TODO: make "take notes" academic possible here
-        mapOfEvents.put("GO TO HENRY HALL", new Event("GO TO HENRY HALL",
-                "You walk toward Henry Hall."));
-        mapOfEvents.get("GO TO HENRY HALL").setLocation("HENRY HALL");
+        //this is where the "take notes" academic would be implemented
         mapOfEvents.put("GO TO BRIDGE", new Event("GO TO BRIDGE",
                 "You leave Padnos and walk back to the bridge."));
         mapOfEvents.get("GO TO BRIDGE").setLocation("BRIDGE");
@@ -140,14 +137,22 @@ public class    Padnos extends Location {
         return name;
     }
 
+    /*******************************************************************************************************************
+    * A setter for the variable FightableString
+    * *****************************************************************************************************************/
     @Override
     protected void setFightableString(String str) {
         fightableString = str;
     }
 
+    /***********************************************************************************************************************
+     * A getter for the variable FightableString
+     * @return string representing character you could fight here
+     * ********************************************************************************************************************/
     @Override
     protected String getFightableString() {
         return fightableString;
     }
 }
-//end Padnos
+
+//end Padnos class

@@ -10,7 +10,10 @@ import javax.swing.*;
  *  @version 1
  **********************************************************************************************************************/
 public class Gate extends Location {
+    /** Character you can fight in this area */
     public String fightableString;
+
+    /** Image for the GUI in this area */
     ImageIcon icon = new ImageIcon(getClass().getResource("TransformationLink15.png"));
 
     /*******************************************************************************************************************
@@ -23,7 +26,7 @@ public class Gate extends Location {
         createMap();
         createCharList();
         createEventList();
-        fightableString = "TALK TO T HAAS";
+        fightableString = "TALK TO T HAAS"; //fight t haas
     }
 
     /*******************************************************************************************************************
@@ -145,9 +148,17 @@ public class Gate extends Location {
      * Getter for name of this area
      ******************************************************************************************************************/
     public String getName() {return name;}
+
+    /*******************************************************************************************************************
+     * A setter for the variable FightableString
+     ******************************************************************************************************************/
     @Override
     protected void setFightableString(String str) { fightableString = str; }
 
+    /*******************************************************************************************************************
+     * A getter for the variable FightableString
+     * @return fightableString
+     ******************************************************************************************************************/
     @Override
     protected String getFightableString() { return fightableString; }
 }

@@ -18,7 +18,6 @@ public class GUI {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(false);
         frame.setVisible(true);
-        //frame.setBackground(Color.PINK);
 
         /** panel is the game itself */
         GamePanel panel = new GamePanel();

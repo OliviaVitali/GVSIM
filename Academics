@@ -1,14 +1,20 @@
 public class Academics extends Event{
 
+/***********************************************************************************************************************
+* This is the plan for a class to have a sort of "spell" mechanic (as in magic), but adapted for
+* our game. Code included here to show what would have been implemented.
+***********************************************************************************************************************/
+
 private Map<String, Boolean> list;
 private Character me, you;
 
+//The planned academics (spells)
 public Academics(Character me, Character you){
   list = new HashMap<String, Boolean>();
   this.me = me;
   this.you = you;
   
-  list.put("SHARPEN PENCIL", false);
+  list.put("SHARPEN PENCIL", false); //increase attack etc
   list.put("FIRE ALARM", false);
   list.put("CALCULATE", false);
   list.put("TAKE NOTES", false);
