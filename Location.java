@@ -52,6 +52,9 @@ public abstract class Location {
 
     /** sets the string that allows fight */
     protected abstract void setFightableString(String str);
+
+    /** gets the GameOver boolean from location to GamePanel */
+    protected abstract boolean getGameOver();
 }
 
 //end location class

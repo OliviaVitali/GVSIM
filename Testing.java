@@ -18,7 +18,7 @@ public class Testing {
      */
 
     //Location testing: make location, check all events exist/have proper flavortext, npcs exist, map has proper item(s),
-    //proper description. NOTE: DO NOT change line formatting of flavortext or assertEquals will fail!
+    //proper description. NOTE: DO NOT change line formatting of flavortext, or assertEquals will fail!
     @Test
     public void LocationTestGate() {
         /** Gate location */
@@ -57,6 +57,7 @@ public class Testing {
         assertEquals(g.getFightableString(), "THAAS");
     }
 
+    //Tests the bridge class
     @Test
     public void LocationTestBridge(){
         /** Bridge location */ //todo: test troll death
@@ -96,6 +97,17 @@ public class Testing {
         b.setGameOver(true);
         assertTrue(b.getGameOver());
     }
+
+    //tests the Padnos class
+    @Test
+    public void padnosTesting() {
+        Padnos p = new Padnos();
+
+        assertEquals(p.getName(), "Padnos");
+       // assertEquals(p.getFlav);
+    }
+
+    //tests character creation/speech/inventory/fightability
     @Test
     public void characterTesting(){
         //Creates character
@@ -127,6 +139,7 @@ public class Testing {
         assertFalse(testChar.isFightable());
     }
 
+    //tests the stats class
     @Test
     public void statsTesting(){
         //tests creating stats
@@ -182,6 +195,7 @@ public class Testing {
         assertEquals(defaultStats.getDef(), 1);
     }
 
+    //tests the event class
     @Test
     public void eventTesting(){
         //test creating a default event

@@ -197,7 +197,7 @@ public class GamePanel extends JPanel {
         mb.add(helpButton);
         mb.add(mapButton);
         mb.add(convoChoices);
-        mb.add(fightChoices);
+        //mb.add(fightChoices);
         helpButton.addActionListener(listener);
         mapButton.addActionListener(listener);
         convoChoices.addActionListener(listener);
@@ -331,7 +331,7 @@ public class GamePanel extends JPanel {
                 System.out.println("9");
             }
             //If the character is already dead why fight it
-            if(currLocation.listOfCharacters.get(enemy).getCharStats().getHP() <= 0) {
+            if(currLocation.listOfCharacters.get(enemy).getCharStats().getHP() <= 0 || currLocation.getGameOver()) {
                 System.out.println("14");
                 alreadyLvl = true;
                 ta.append("\n You can't fight a dead body -_-");

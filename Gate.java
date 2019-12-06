@@ -16,6 +16,9 @@ public class Gate extends Location {
     /** Image for the GUI in this area */
     ImageIcon icon = new ImageIcon(getClass().getResource("TransformationLink15.png"));
 
+    /** Whether the game is over */
+    public boolean gameOver;
+
     /*******************************************************************************************************************
      * Constructor for class.  Creates characters, sets area picture, description for gate, map of possible places to go
      * to, and events related to the flavor text.
@@ -27,6 +30,7 @@ public class Gate extends Location {
         createCharList();
         createEventList();
         fightableString = "TALK TO T HAAS"; //fight t haas
+        gameOver = false; //game is still running
     }
 
     /*******************************************************************************************************************
@@ -161,4 +165,12 @@ public class Gate extends Location {
      ******************************************************************************************************************/
     @Override
     protected String getFightableString() { return fightableString; }
+
+    /*******************************************************************************************************************
+     * Getter for gameOver variable
+     * @return gameOver value (true/false)
+     ******************************************************************************************************************/
+    public boolean getGameOver() {
+        return gameOver;
+    }
 }

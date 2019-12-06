@@ -15,6 +15,9 @@ public class Padnos extends Location {
     /**Represents who can be fought in this area */
     public String fightableString;
 
+    /** if game is over in fighting */
+    public boolean gameOver;
+
     /*******************************************************************************************************************
      * Constructor for class.  Creates characters, description for bridge, map of possible places to go to, and
      * events related to the flavor text.
@@ -26,6 +29,7 @@ public class Padnos extends Location {
         createMap();
         fightableString = ""; //no fightable characters here
         fighting = false; //player is not in a fight by default
+        gameOver = false;
     }
 
     /*******************************************************************************************************************
@@ -153,6 +157,15 @@ public class Padnos extends Location {
     protected String getFightableString() {
         return fightableString;
     }
+
+    /*******************************************************************************************************************
+     * Getter for gameOver variable
+     * @return gameOver value (true/false)
+     ******************************************************************************************************************/
+    public boolean getGameOver() {
+        return gameOver;
+    }
+
 }
 
 //end Padnos class

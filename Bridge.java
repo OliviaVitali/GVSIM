@@ -19,7 +19,7 @@ public class Bridge extends Location {
     public boolean fighting;
 
     /** Public so it can be used in multiple methods */
-    private boolean gameOver;
+    public boolean gameOver;
 
     /** For use in testing */
     public String fightableString;
@@ -98,6 +98,8 @@ public class Bridge extends Location {
             mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter " +
                     "Padnos"));
             mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
+            mapOfEvents.put("LOOK UNDER BRIDGE", new Event(
+                    "LOOK UNDER BRIDGE", "\n Just a ravine under there."));
         }
     }
 
@@ -166,7 +168,7 @@ public class Bridge extends Location {
             currChar = listOfCharacters.get("TROLL");
             currChar.setCharName("Gargafart the troll");
             currChar.setSpeechOptions("FIGHT", "I'm a troll and I want to fight you!");
-            currChar.getCharStats().setAllStats(5, 7, 1, 2);
+            currChar.getCharStats().setAllStats(22, 3, 1, 3);
 
             //player
             listOfCharacters.put("PLAYER", new Character());
@@ -199,7 +201,7 @@ public class Bridge extends Location {
             fighting = true;
         }
         while (fighting && !str.equals("START") && !roundOver) {
-            if (e.getCharStats().getHP() <= 0) {
+            if (e.getCharStats().getHP() <= 0 || gameOver) {
                 fighting = false;
                 System.out.println("You Win");
                 gameOver =true;
@@ -290,9 +292,9 @@ public class Bridge extends Location {
         if(gameOver == true) {
             System.out.println("The Fight is Over");
             //after troll is defeated, area changes
-            setDescription(); //changes area description
-            editCharList(); //makes player only character present
-            editEventList(); //makes it so that player can go to padnos
+//          setDescription(); //changes area description
+//           editCharList(); //makes player only character present
+//           editEventList(); //makes it so that player can go to padnos
         }
         return 1; //for testing
     }
@@ -307,9 +309,9 @@ public class Bridge extends Location {
             flavorText = "\n You find yourself standing on a bridge.  you "
                     + "see a beautiful autumn scene with orange trees\nand"
                     + " a 50 foot drop to the ravine below.\n" +
-                    "You are not alone. Try checking underneath the bridge...";
+                    "Try checking underneath the bridge...";
         } else { //troll dead
-            flavorText = "\nYou breathe a sigh of relief and relax from the fight. What next?";
+            flavorText = "\nYou breathe a sigh of relief and relax from the fight. What next?"; //remove troll from flavortext?
         }
     }
 
