@@ -55,6 +55,9 @@ public class Testing {
         //test fightable
         g.setFightableString("THAAS");
         assertEquals(g.getFightableString(), "THAAS");
+
+        //test GameOver
+        assertEquals(g.getGameOver(), false);
     }
 
     //Tests the bridge class
@@ -75,7 +78,7 @@ public class Testing {
         assertNotNull(b.getEvent("GO TO GATE"));
 
         //go to padnos event
-        assertEquals("You try to cross the bridge, but " +
+        assertEquals("\nYou try to cross the bridge, but " +
                 "the troll blocks your path!", b.getEvent("GO TO PADNOS").getFlavorText());
 
         //map item
@@ -100,11 +103,28 @@ public class Testing {
 
     //tests the Padnos class
     @Test
-    public void padnosTesting() {
+    public void LocationTestingPadnos() {
         Padnos p = new Padnos();
 
+        //test name
         assertEquals(p.getName(), "Padnos");
-       // assertEquals(p.getFlav);
+
+        //test fightability
+        assertEquals(p.Fight(new Character(), new Character(), "!", 1), 2);
+        p.setFightableString("NUEROCHEM");
+        assertEquals(p.getFightableString(), "NUEROCHEM");
+
+        //test map
+        assertEquals(p.getMap(), "BRIDGE");
+
+        //test get Map
+        assertEquals(p.getEvent("LOOK").getFlavorText(), "\nThere is a class" +
+                " in session a few doors down, or a hallway leads " +
+                "further on toward Henry Hall. There is a man to your left.");
+
+        //test game over
+        assertEquals(p.getGameOver(), false);
+
     }
 
     //tests character creation/speech/inventory/fightability

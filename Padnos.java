@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.HashMap;
 
 /***********************************************************************************************************************
@@ -5,9 +6,12 @@ import java.util.HashMap;
  * referenced when deciding output.
  *
  * @author Sarah Arnott
+ * @author Riley Hernandez
  * @version 2
  **********************************************************************************************************************/
 public class Padnos extends Location {
+    /** image **/
+    ImageIcon icon = new ImageIcon(getClass().getResource("padnos.png"));
 
     /** indicates if the player is in a fight */
     public boolean fighting;
@@ -26,6 +30,7 @@ public class Padnos extends Location {
         setDescription();
         createCharList();
         createEventList();
+        setImage();
         createMap();
         fightableString = ""; //no fightable characters here
         fighting = false; //player is not in a fight by default
@@ -164,6 +169,13 @@ public class Padnos extends Location {
      ******************************************************************************************************************/
     public boolean getGameOver() {
         return gameOver;
+    }
+
+    /*******************************************************************************************************************
+     * Sets the picture displayed for this area.
+     ******************************************************************************************************************/
+    protected void setImage(){
+        image = icon;
     }
 
 }

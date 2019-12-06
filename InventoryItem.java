@@ -2,6 +2,7 @@
  * Inventory Item that contains name, description, and relevant stat
  * changes
  * @author Olivia Vitali
+ * @author Riley Hernandez
  * @version 1
  **********************************************************************************************************************/
 public class InventoryItem {
