@@ -19,7 +19,7 @@ public class Testing {
     //Location testing: make location, check all events exist/have proper flavortext, npcs exist, map has proper item(s),
     //proper description. NOTE: DO NOT change line formatting of flavortext or assertEquals will fail!
     @Test
-    public void LocationTest(){
+    public void LocationTestGate() {
         /** Gate location */
         Gate g = new Gate();
         //look event
@@ -49,24 +49,27 @@ public class Testing {
         assertEquals(g.getName(), "GATE");
 
         //test fight
-       assertEquals(g.Fight(new Character(), new Character(), "!", 1), 0);
+        assertEquals(g.Fight(new Character(), new Character(), "!", 1), 0);
 
+        //test fightable
+        g.setFightableString("THAAS");
+        assertEquals(g.getFightableString(), "THAAS");
+    }
 
+    @Test
+    public void LocationTestBridge(){
         /** Bridge location */ //todo: test troll death
+        Gate g = new Gate();
         Bridge b = new Bridge();
         //PRE-TROLL DEATH
         //look event
         assertNotNull(b.getEvent("LOOK"));
-        assertEquals(b.getEvent("LOOK").getFlavorText(), "\nIt's Saturday and you've been wandering " +
-                "around campus because...let's face it, you " +
-                "didn't really have anything else to do.\n" +
-                "By mistake, you've wandered under a large " +
-                "blue sculpture only to remember that you" +
-                " weren't supposed to walk under that.\nThe" +
-                " world shimmers and you see T Haas ahead, " +
-                "handing out ice cream.  Behind you is a bridge.");
+        assertEquals(b.getEvent("LOOK").getFlavorText(), "\n You find yourself standing on a bridge.  you "
+                + "see a beautiful autumn scene with orange trees\nand"
+                + " a 50 foot drop to the ravine below.\n" +
+                "You are not alone. Try checking underneath the bridge...");
         //go to gate event
-        assertEquals("\nYou walk towards the gate ", b.getEvent("GO TO GATE").getFlavorText());
+        assertEquals("\nYou walk towards the gate", b.getEvent("GO TO GATE").getFlavorText());
         assertNotNull(b.getEvent("GO TO GATE"));
 
         //go to padnos event
@@ -74,16 +77,17 @@ public class Testing {
                 "the troll blocks your path!", b.getEvent("GO TO PADNOS").getFlavorText());
 
         //map item
-        assertEquals(g.getMap(), "GATE");
+        assertEquals(g.getMap(), "BRIDGE");
 
         //test name of location
         assertEquals(g.getName(), "GATE");
 
         //test fight
-        assertEquals(g.Fight(new Character(), new Character(), "!", 1), 0);
+        assertEquals(b.Fight(new Character(), new Character(), "!", 1), 1);
 
-
-
+        //test fightable
+        b.setFightableString("TROLL");
+        assertEquals(b.getFightableString(), "TROLL");
     }
 
 }

@@ -145,12 +145,8 @@ public class Gate extends Location {
      ******************************************************************************************************************/
     public String getName() {return name;}
     @Override
-    protected void setFightableString(String str) {
-        fightableString = str;
-    }
+    protected void setFightableString(String str) { fightableString = str; }
 
     @Override
-    protected String getFightableString() {
-        return fightableString;
-    }
+    protected String getFightableString() { return fightableString; }
 }

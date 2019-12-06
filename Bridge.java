@@ -12,7 +12,7 @@ import java.util.Random;
  **********************************************************************************************************************/
 public class Bridge extends Location {
     /** Icon for the bridge */
-    //ImageIcon icon = new ImageIcon(getClass().getResource("LittleMak15(2).jpg"));
+    ImageIcon icon = new ImageIcon(getClass().getResource("LittleMak15(2).jpg"));
 
     /** indicates if the player is in a fight */
     public boolean fighting;
@@ -69,13 +69,13 @@ public class Bridge extends Location {
         mapOfEvents = new HashMap<String, Event>();
         //gate travel
         mapOfEvents.put("GO TO GATE", new Event("GO TO GATE",
-                "\nYou walk towards the Transformation Link"));
+                "\nYou walk towards the gate"));
         mapOfEvents.get("GO TO GATE").setLocation("GATE");
 
         if(!gameOver) { //for when method is called while troll is alive
             mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
-            mapOfEvents.put("CHECK UNDER BRIDGE", new Event(
-                    "CHECK UNDER BRIDGE", "\n There is " +
+            mapOfEvents.put("LOOK UNDER BRIDGE", new Event(
+                    "LOOK UNDER BRIDGE", "\n There is " +
                     "something in the shadows; it is looking for a fight. A troll!"));
             //fighting events
             mapOfEvents.put("FIGHT TROLL", new Event("FIGHT TROLL",
@@ -315,7 +315,7 @@ public class Bridge extends Location {
      * Sets the picture displayed for this area.
      ******************************************************************************************************************/
     protected void setImage(){
-        //image = icon;
+        image = icon;
     }
     @Override
     protected void setFightableString(String str) {
