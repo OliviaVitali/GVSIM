@@ -8,6 +8,7 @@ import java.util.Random;
  * @author Olivia Vitali
  * @author Cameron Shearer
  * @author Sarah Arnott
+ * @author Riley Hernandez
  * @version 3
  **********************************************************************************************************************/
 public class Bridge extends Location {

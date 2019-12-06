@@ -5,7 +5,8 @@ import java.util.Map;
  * A class that acts as a template for characters, either NPC or the Player.
  * @author Olivia Vitali
  **********************************************************************************************************************/
-public class Character {
+public class
+Character {
     /** name of character*/
     private String charName;
     /** User command then speech options for character */

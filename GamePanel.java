@@ -7,6 +7,7 @@ import java.util.Random;
 /***********************************************************************************************************************
 * this is the game.  It holds all the objects, players, locations and navigation through the game
 * @author Olivia Vitali, Fight by Cameron Shearer
+ *@author Riley Hernandez
 * @version 4
 ***********************************************************************************************************************/
 public class GamePanel extends JPanel {

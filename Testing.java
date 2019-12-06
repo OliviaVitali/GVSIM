@@ -8,12 +8,13 @@ import static org.junit.Assert.*;
  **********************************************************************************************************************/
 public class Testing {
     /** What we need to test (what the project does):
-     * Talk to T Haas, Neurochem
-     * Fight troll
      * Change locations
      * Create locations
-     * Click buttons
-     * COMMANDS
+     * Create Characters
+     * Create Events
+     * Commands
+     * Conversations
+     * Fighting Mechanics
      */
 
     //Location testing: make location, check all events exist/have proper flavortext, npcs exist, map has proper item(s),
@@ -77,7 +78,7 @@ public class Testing {
                 "the troll blocks your path!", b.getEvent("GO TO PADNOS").getFlavorText());
 
         //map item
-        assertEquals(g.getMap(), "BRIDGE");
+        assertEquals(b.getMap(), "GATEPADNOS");
 
         //test name of location
         assertEquals(g.getName(), "GATE");
@@ -88,6 +89,41 @@ public class Testing {
         //test fightable
         b.setFightableString("TROLL");
         assertEquals(b.getFightableString(), "TROLL");
-    }
 
+        //test Troll Fight
+        b.getEvent("FIGHT");
+        assertNotEquals(b.getGameOver(), true);
+        b.setGameOver(true);
+        assertEquals(b.getGameOver(), true);
+    }
+    @Test
+    public void characterTesting(){
+        //Creates character
+        Character testChar = new Character();
+
+        //tests set and get name of character
+        testChar.setCharName("Johnny Test");
+        assertEquals("Johnny Test", testChar.getCharName());
+
+        //test speech options
+        testChar.setSpeechOptions("TALK TO JOHNNY", "\nWoah, dude!");
+        testChar.setSpeechOptions("GOODBYE", "\nSee you later!");
+        assertEquals(testChar.getSpeechOptions(), "null\n " + "talk to johnny\n " + "goodbye");
+        assertEquals(testChar.getSpeech("TALK TO JOHNNY"), "\nWoah, dude!");
+        assertEquals(testChar.getSpeech("GOODBYE"), "\nSee you later!");
+
+        //test item inventory
+        InventoryItem skateboard = new InventoryItem();
+        testChar.setInventoryItem(skateboard, 0);
+        assertEquals(testChar.getInventoryItems(0), skateboard);
+
+        //test if player
+        testChar.setIsPlayer(false);
+        assertEquals(testChar.isPlayer(), false);
+
+        //test fightability
+        assertEquals(testChar.isFightable(), true);
+        testChar.setCharStats(null);
+        assertEquals(testChar.isFightable(),false);
+    }
 }

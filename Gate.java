@@ -6,6 +6,7 @@ import javax.swing.*;
  *  referenced when deciding output. This structure is technically known as Transformational Link.
  *  @author Olivia Vitali
  *  @author Cameron Shearer
+ *  @author Riley Hernandez
  *  @version 1
  **********************************************************************************************************************/
 public class Gate extends Location {

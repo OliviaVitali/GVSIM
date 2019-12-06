@@ -8,7 +8,7 @@ import java.util.HashMap;
  * @author Sarah Arnott
  * @version 2
  **********************************************************************************************************************/
-public class Padnos extends Location {
+public class    Padnos extends Location {
 
     /**
      * indicates if the player is in a fight
