@@ -69,7 +69,7 @@ public class Testing {
         assertEquals(b.getEvent("LOOK").getFlavorText(), "\n You find yourself standing on a bridge.  you "
                 + "see a beautiful autumn scene with orange trees\nand"
                 + " a 50 foot drop to the ravine below.\n" +
-                "You are not alone. Try checking underneath the bridge...");
+                "Try checking underneath the bridge...");
         //go to gate event
         assertEquals("\nYou walk towards the gate", b.getEvent("GO TO GATE").getFlavorText());
         assertNotNull(b.getEvent("GO TO GATE"));

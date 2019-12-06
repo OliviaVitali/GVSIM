@@ -76,7 +76,7 @@ public class Bridge extends Location {
                 "\nYou walk towards the gate"));
         mapOfEvents.get("GO TO GATE").setLocation("GATE");
 
-        if(!gameOver) { //for when method is called while troll is alive
+        if(listOfCharacters.get("TROLL").getCharStats().getHP() != 0) { //for when method is called while troll is alive
             mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
             mapOfEvents.put("LOOK UNDER BRIDGE", new Event(
                     "LOOK UNDER BRIDGE", "\n There is " +
@@ -90,17 +90,24 @@ public class Bridge extends Location {
             mapOfEvents.get("ATTACK").setNpc(listOfCharacters.get("FIGHT TROLL"));
             mapOfEvents.put("DEFEND", new Event("DEFEND", ""));
             //blocks you from advancing to padnos
-            mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You try to cross the bridge, but " +
+            mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "\nYou try to cross the bridge, but " +
                     "the troll blocks your path!"));
-        } else { //for when method is called again after troll dies
-            mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
-            //allows travel to padnos
-            mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter " +
-                    "Padnos"));
-            mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
-            mapOfEvents.put("LOOK UNDER BRIDGE", new Event(
-                    "LOOK UNDER BRIDGE", "\n Just a ravine under there."));
         }
+    }
+
+    protected void createEventListTwo(){
+        mapOfEvents = new HashMap<String, Event>();
+        //gate travel
+        mapOfEvents.put("GO TO GATE", new Event("GO TO GATE",
+                "\nYou walk towards the gate"));
+        mapOfEvents.get("GO TO GATE").setLocation("GATE");
+        mapOfEvents.put("LOOK", new Event("LOOK", this.flavorText));
+        //allows travel to padnos
+        mapOfEvents.put("GO TO PADNOS", new Event("GO TO PADNOS", "You cross the bridge and enter " +
+                "Padnos"));
+        mapOfEvents.get("GO TO PADNOS").setLocation("PADNOS");
+        mapOfEvents.put("LOOK UNDER BRIDGE", new Event(
+                "LOOK UNDER BRIDGE", "\n Just a ravine under there."));
     }
 
     /*******************************************************************************************************************
@@ -205,6 +212,7 @@ public class Bridge extends Location {
                 fighting = false;
                 System.out.println("You Win");
                 gameOver =true;
+                createEventListTwo();
             }
             if (m.getCharStats().getHP() <= 0) {
                 fighting = false;
