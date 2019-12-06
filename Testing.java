@@ -126,4 +126,60 @@ public class Testing {
         testChar.setCharStats(null);
         assertEquals(testChar.isFightable(),false);
     }
+
+    @Test
+    public void statsTesting(){
+        //tests creating stats
+        Stats charStatsTest = new Stats(8, 17, 9, 4);
+
+        //tests damage
+        assertEquals(charStatsTest.getHP(), 8);
+        charStatsTest.damageCalculations(2);
+        assertEquals(charStatsTest.getHP(), 6);
+
+        //tests HP to 0
+        charStatsTest.damageCalculations(7);
+        assertEquals(charStatsTest.getHP(), 0);
+
+        //test reset HP
+        charStatsTest.resetHp(9);
+        assertEquals(charStatsTest.getHP(), 9);
+
+        //test strength
+        assertEquals(charStatsTest.getStr(), 17);
+        charStatsTest.changeStr(-8);
+        assertEquals(charStatsTest.getStr(), 9);
+
+        //test defense
+        charStatsTest.setDefense(7);
+        assertEquals(charStatsTest.getDef(), 7);
+        charStatsTest.changeDef(3);
+        assertEquals(charStatsTest.getDef(), 10);
+
+        //test speed
+        assertEquals(charStatsTest.getSpd(), 9);
+        charStatsTest.changeSpd(4);
+        assertEquals(charStatsTest.getSpd(), 13);
+
+        //test level
+        charStatsTest.levelUp(3);
+        assertEquals(charStatsTest.getLevel(), 3);
+
+        //test default stats for character
+        Character testChar2 = new Character();
+        assertEquals(testChar2.getCharStats().getLevel(), 0);
+        assertEquals(testChar2.getCharStats().getSpd(), 7);
+        assertEquals(testChar2.getCharStats().getStr(), 6);
+        assertEquals(testChar2.getCharStats().getDef(), 5);
+        assertEquals(testChar2.getCharStats().getHP(), 8);
+
+        //test default stats
+        Stats defaultStats = new Stats();
+        assertEquals(defaultStats.getLevel(), 5);
+        assertEquals(defaultStats.getHP(), 1);
+        assertEquals(defaultStats.getSpd(), 1);
+        assertEquals(defaultStats.getStr(), 1);
+        assertEquals(defaultStats.getDef(), 1);
+
+    }
 }
