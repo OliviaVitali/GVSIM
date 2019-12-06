@@ -180,6 +180,33 @@ public class Testing {
         assertEquals(defaultStats.getSpd(), 1);
         assertEquals(defaultStats.getStr(), 1);
         assertEquals(defaultStats.getDef(), 1);
+    }
+
+    @Test
+    public void eventTesting(){
+        //test creating a default event
+        Event defaultEvent = new Event();
+        assertEquals(defaultEvent.getName(), "Event");
+        assertEquals(defaultEvent.getFlavorText(), "flavorText ");
+        assertNull(defaultEvent.getInventoryItem());
+        assertNull(defaultEvent.getNpc());
+        assertNull(defaultEvent.getLocation());
+
+        //test setting flavor text
+        defaultEvent.setFlavorText("yeet");
+        assertEquals(defaultEvent.getFlavorText(), "flavorText yeet");
+
+        //test setting null inventoryItem and real InventoryItem
+        InventoryItem balloon = new InventoryItem();
+        defaultEvent.setInventoryItem(balloon);
+        assertEquals(defaultEvent.getInventoryItem(), balloon);
+
+        //test getSpeech
+        assertEquals(defaultEvent.getSpeech(), "");
+        Character testChar3 = new Character();
+        defaultEvent.setNpc(testChar3);
+        assertNull(defaultEvent.getSpeech());
+
 
     }
 }

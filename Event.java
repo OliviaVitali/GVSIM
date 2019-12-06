@@ -65,8 +65,7 @@ public class Event {
     * @return name of the event
     *******************************************************************************************************************/
     public String getName() {
-        if (name != null) return name;
-        return null;
+        return name;
     }
 
     /*******************************************************************************************************************
@@ -81,8 +80,7 @@ public class Event {
     * @return string with flavorText to be print on GUI
     *******************************************************************************************************************/
     public String getFlavorText() {
-        if (flavorText != null)return flavorText;
-        return null;
+        return flavorText;
     }
 
     /*******************************************************************************************************************
